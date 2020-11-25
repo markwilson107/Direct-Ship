@@ -1,6 +1,7 @@
 // DEPENDENCIES
 const express = require("express");
 const db = require("./models");
+const logSymbols = require("log-symbols");
 
 // EXPRESS SETUP
 const app = express();
@@ -14,9 +15,14 @@ app.use(express.static("public"));
 // ROUTES
 require("./routes/routes.js")(app);
 
+// INITIAL SETUP
+console.log(`\n///////////////////////////////////`)
+console.log(`// ${logSymbols.info} Launching TCWA: Direct-Ship //`)
+console.log(`///////////////////////////////////\n`)
+
 // CONNECT TO DATABASE AND LAUNCH APP
 db.sequelize.sync({ force: true }).then(function() {
   app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+    console.log(`${logSymbols.success} App listening on PORT ${PORT}\n`);
   });
 });
