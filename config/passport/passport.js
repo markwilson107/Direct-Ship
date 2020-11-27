@@ -97,7 +97,7 @@ module.exports = function (passport, user) {
             // Check password is valid
             let isValidPassword = function (userpass, password) {
                 return bCrypt.compareSync(password, userpass);
-            }
+            }         
 
             // Check if user exists
             User.findOne({ where: { email: email }}).then(function (user) {
@@ -113,6 +113,14 @@ module.exports = function (passport, user) {
                 if (!isValidPassword(user.password, password)) {
                     return done(null, false, {
                         message: logSymbols.warning + 'Incorrect password!'
+                    });
+                }
+
+                // Check if user is active
+                if (user.status != "active"){
+                    console.log("USer.status!: "+user.status);
+                    return done(null, false, {
+                        message: logSymbols.warning + 'Inactive user!'
                     });
                 }
 

@@ -13,7 +13,7 @@ exports.signin = function (request, result) {
 }
 
 // Logout process
-exports.logout = function (request, res) {
+exports.logout = function (request, result) {
 
     request.session.destroy(function (error) {
         result.redirect('/');

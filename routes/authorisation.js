@@ -29,7 +29,7 @@ module.exports = function (app, passport) {
 
     // CHECK IF LOGGED IN
     function isLoggedIn(request, response, next) {
- 
+        
         if (request.isAuthenticated())         
             return next();
              
