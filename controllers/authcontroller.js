@@ -8,8 +8,15 @@ exports.signup = function (request, result) {
 
 // Login process
 exports.signin = function (request, result) {
-
     result.render('signin');
+}
+
+// Inactive account
+exports.inactive = function (request, result) {
+
+    request.session.destroy(function (error) {
+        result.render('inactive');
+    });
 }
 
 // Logout process

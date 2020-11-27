@@ -8,6 +8,7 @@ module.exports = function (app, passport) {
     app.get('/signup', authController.signup);
     app.get('/signin', authController.signin);
     app.get('/logout', authController.logout);
+    app.get('/inactive', isLoggedIn, authController.inactive);
     app.get('/*', isLoggedIn, authController.dashboard);
 
     // PRIMARY DASHBOARD
@@ -15,7 +16,7 @@ module.exports = function (app, passport) {
 
     // SIGNUP POST
     app.post('/signup', passport.authenticate('local-signup', {
-            successRedirect: '/dashboard',
+            successRedirect: '/inactive',
             failureRedirect: '/signup'
         }
     ));
@@ -23,16 +24,30 @@ module.exports = function (app, passport) {
     // LOGIN POST
     app.post('/signin', passport.authenticate('local-signin', {
             successRedirect: '/dashboard',    
-            failureRedirect: '/signin'
+            failureRedirect: '/signin',
         }    
     ));
 
     // CHECK IF LOGGED IN
     function isLoggedIn(request, response, next) {
-        
-        if (request.isAuthenticated())         
-            return next();
-             
-            response.redirect('/signin');     
+        if (request.user){
+            
+            if (request.isAuthenticated() && request.user.status == "active"){
+                return next();
+            }
+            else {
+                if (request.user.status == "inactive"){
+                    request.session.destroy(function (error) {
+                        response.render('inactive');
+                    }); 
+                }
+                else {
+                    response.redirect('/signin'); 
+                }
+            }
+        }  
+        else {
+            response.redirect('/signin'); 
+        }
     }
 }
