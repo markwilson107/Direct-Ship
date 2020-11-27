@@ -11,7 +11,10 @@ body {
 
 @import url('https://fonts.googleapis.com/css?family=Numans');
 html, body {
-    background-image: url('/assets/img/truck.jpg');
+    background: url('/assets/img/truck.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
     height: calc(100vh - 190px);
@@ -45,7 +48,7 @@ html, body {
 input:focus {
     outline: 0 0 0 0 !important;
     box-shadow: 0 0 0 0 !important;
-}   
+}
 
 .login_btn {
     color: black;
@@ -60,7 +63,7 @@ input:focus {
 }
 
 .links {
-    color: white;   
+    color: white;
 }
 
 .links a {
