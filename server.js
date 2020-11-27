@@ -5,6 +5,7 @@ const passport = require('passport')
 const exphbs = require('express-handlebars')
 const db = require("./models");
 const logSymbols = require("log-symbols");
+const path = require('path')
 
 // EXPRESS SETUP
 const app = express();
@@ -16,6 +17,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // HANDLEBARS
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));

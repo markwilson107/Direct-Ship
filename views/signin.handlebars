@@ -1,7 +1,24 @@
-<form id="signin" name="signin" method="post" action="signin">
-    <label for="email">Email Address</label>
-    <input class="text" name="email" type="text" />
-    <label for="password">Password</label>
-    <input name="password" type="password" />
-    <input class="btn" type="submit" value="Sign In" />
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="jumbotron">
+                <h1 class="display-3">Login:</h1>
+                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for
+                    calling extra attention to featured content or information.</p>
+                <br />
+                <form id="signin" name="signin" method="post" action="signin">
+                    <div class="form-group row">
+                        <input class="text form-control" name="email" type="text"
+                            placeholder="Please enter your email address">
+                        <br /><br />
+                        <input name="password" type="password" class="form-control"
+                            placeholder="Please enter your password" />
+                        <br /><br />
+                        <input class="btn btn-primary" type="submit" value="Sign In" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
