@@ -1,5 +1,7 @@
+// DEPENDENCIES
 require('dotenv').config();
 
+// MODULE EXPORTS
 module.exports = {
     "development": {
         "username": "root",

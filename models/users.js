@@ -1,13 +1,16 @@
 // https://code.tutsplus.com/tutorials/using-passport-with-sequelize-and-mysql--cms-27537
 // Passport tutorial
 
+// MODULE EXPORTS
 module.exports = function(sequelize, Sequelize) {
  
-    var User = sequelize.define('user', {
+    // CREATE DEFAULT USER TABLE
+    let User = sequelize.define('user', {
  
         id: {
             autoIncrement: true,
             primaryKey: true,
+            notNull: true,
             type: Sequelize.INTEGER
         },
  
@@ -22,10 +25,6 @@ module.exports = function(sequelize, Sequelize) {
         },
  
         username: {
-            type: Sequelize.TEXT
-        },
- 
-        about: {
             type: Sequelize.TEXT
         },
  
@@ -47,7 +46,7 @@ module.exports = function(sequelize, Sequelize) {
  
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
-            defaultValue: 'active'
+            defaultValue: 'inactive'
         }
  
     });

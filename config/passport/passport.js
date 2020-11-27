@@ -1,82 +1,134 @@
+// DEPENDENCIES
 const bCrypt = require('bcrypt-nodejs');
+const logSymbols = require('log-symbols');
 
-module.exports = function(passport, user) {
+// MODULE EXPORTS
+module.exports = function (passport, user) {
 
-    var User = user;
-    var LocalStrategy = require('passport-local').Strategy;
+    // Create the User Strategy
+    let User = user;
+    let LocalStrategy = require('passport-local').Strategy;
 
-    passport.use('local-signup', new LocalStrategy(
- 
+    // Add the user to the session
+    passport.serializeUser(function (user, done) {
+        done(null, user.id);
+    });
+
+    // Return the user from the session
+    passport.deserializeUser(function (id, done) {
+
+        User.findById(id).then(function (user) {
+
+            if (user) {
+                done(null, user.get());
+            }
+            else {
+                done(user.errors, null);
+            }
+        });
+    });
+
+    // Create local signup for Passport
+    passport.use('local-signup', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    },
+
+        function (request, email, password, done) {
+
+            // Create an encrypted password using bcrypt
+            let generateHash = function (password) {
+                return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
+            };
+
+            // Find an existing user
+            User.findOne({ where: { email: email }}).then(function (user) {
+
+                // If this user already exists, error
+                if (user) {
+                    return done(null, false, {
+                        message: logSymbols.warning + 'That email is already taken!'
+                    });
+                } 
+                // Otherwise create user
+                else {
+
+                    let userPassword = generateHash(password);
+
+                    let data = {
+                        email: email,
+                        password: userPassword,
+                        firstname: request.body.firstname,
+                        lastname: request.body.lastname
+                    };
+
+                    // Create the user in the database
+                    User.create(data).then(function (newUser, created) {
+
+                        // New User not created
+                        if (!newUser) {
+                            return done(null, false);
+                        }
+
+                        // New User created
+                        if (newUser) {
+                            return done(null, newUser);
+                        }
+                    });
+                }
+            });
+        }
+    ));
+
+    // Create local signin for Passport
+    passport.use('local-signin', new LocalStrategy(
+
         {
             usernameField: 'email',
             passwordField: 'password',
             passReqToCallback: true 
-     
         },
 
-        function(req, email, password, done) {
- 
-            var generateHash = function(password) {
- 
-                return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-             
-            };
+        function (request, email, password, done) {
 
-            User.findOne({
-                where: {
-                    email: email
-                }
-            }).then(function(user) {
- 
-                if (user)
- 
-                {
- 
+            let User = user;
+
+            // Check password is valid
+            let isValidPassword = function (userpass, password) {
+                return bCrypt.compareSync(password, userpass);
+            }
+
+            // Check if user exists
+            User.findOne({ where: { email: email }}).then(function (user) {
+
+                // Check if user does not exist
+                if (!user) {
                     return done(null, false, {
-                        message: 'That email is already taken'
+                        message: logSymbols.warning + 'User does not exist!'
                     });
- 
-                } else
- 
-                {
- 
-                    var userPassword = generateHash(password);
- 
-                    var data =
- 
-                        {
-                            email: email,
- 
-                            password: userPassword,
- 
-                            firstname: req.body.firstname,
- 
-                            lastname: req.body.lastname
- 
-                        };
- 
-                    User.create(data).then(function(newUser, created) {
- 
-                        if (!newUser) {
- 
-                            return done(null, false);
- 
-                        }
- 
-                        if (newUser) {
- 
-                            return done(null, newUser);
- 
-                        }
- 
-                    });
- 
                 }
- 
+
+                // Check if password is correct
+                if (!isValidPassword(user.password, password)) {
+                    return done(null, false, {
+                        message: logSymbols.warning + 'Incorrect password!'
+                    });
+                }
+
+                // Return the user's info
+                let userinfo = user.get();
+                return done(null, userinfo);
+
+            }).catch(function (error) {
+
+                console.log(`${logSymbols.error} ${error}`);
+
+                // Return an error if signin failed
+                return done(null, false, {
+                    message: logSymbols.error + 'Something went wrong with your sign in!'
+                });
             });
- 
         }
- 
     ));
- 
 }
