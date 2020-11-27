@@ -9,7 +9,7 @@ module.exports = function (app, passport) {
     app.get('/signin', authController.signin);
     app.get('/logout', authController.logout);
     app.get('/inactive', isLoggedIn, authController.inactive);
-    app.get('/*', isLoggedIn, authController.dashboard);
+    // app.get('/*', isLoggedIn, authController.dashboard);
 
     // PRIMARY DASHBOARD
     app.get('/dashboard', isLoggedIn, authController.dashboard);
