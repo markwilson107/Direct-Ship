@@ -17,7 +17,8 @@ module.exports = function (app, passport) {
     // SIGNUP POST
     app.post('/signup', passport.authenticate('local-signup', {
             successRedirect: '/inactive',
-            failureRedirect: '/signup'
+            failureRedirect: '/signup',
+            failureFlash: true
         }
     ));
 
@@ -25,6 +26,7 @@ module.exports = function (app, passport) {
     app.post('/signin', passport.authenticate('local-signin', {
             successRedirect: '/dashboard',    
             failureRedirect: '/signin',
+            failureFlash: true
         }    
     ));
 
@@ -33,6 +35,7 @@ module.exports = function (app, passport) {
         if (request.user){
             
             if (request.isAuthenticated() && request.user.status == "active"){
+                
                 return next();
             }
             else {

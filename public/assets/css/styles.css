@@ -2,6 +2,11 @@
     background-color: black;
 }
 
+.error {
+    color: #feca0a;
+    padding-top: 5px;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html, body {
