@@ -1,5 +1,6 @@
 // MODULE EXPORTS
 var exports = module.exports = {}
+var db = require("../models");
 
 // Signup process
 exports.signup = function (request, result) {
@@ -31,7 +32,10 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
-    result.render('dashboard', {layout: 'backend'});
+    db.Request.findAll({}).then(function(data) {
+        result.render('dashboard', {layout: 'backend', request: data});
+    });
+    
 }
 
 exports.users = function (request, result) {
