@@ -29,5 +29,5 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
-    result.render('dashboard');
+    result.render('dashboard', {layout: 'backend'});
 }

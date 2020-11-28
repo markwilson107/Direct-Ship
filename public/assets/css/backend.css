@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html, body {
-    background: url('/assets/img/truck.jpg') no-repeat center center fixed;
+    background-color: #e6e7e9;  
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
