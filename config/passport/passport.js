@@ -1,6 +1,5 @@
 // DEPENDENCIES
 const bCrypt = require('bcrypt-nodejs');
-const logSymbols = require('log-symbols');
 
 // MODULE EXPORTS
 module.exports = function (passport, user) {
@@ -48,7 +47,7 @@ module.exports = function (passport, user) {
                 // If this user already exists, error
                 if (user) {
                     return done(null, false, {
-                        message: logSymbols.warning + 'That email is already taken!'
+                        message: 'That email is already taken!'
                     });
                 } 
                 // Otherwise create user
@@ -105,21 +104,21 @@ module.exports = function (passport, user) {
                 // Check if user does not exist
                 if (!user) {
                     return done(null, false, {
-                        message: logSymbols.warning + 'User does not exist!'
+                        message: 'User does not exist!'
                     });
                 }
 
                 // Check if password is correct
                 if (!isValidPassword(user.password, password)) {
                     return done(null, false, {
-                        message: logSymbols.warning + 'Incorrect password!'
+                        message: 'Incorrect password!'
                     });
                 }
 
                 // Check if user is active
                 if (user.status != "active"){
                     return done(null, false, {
-                        message: logSymbols.warning + 'Inactive user!'
+                        message: 'Inactive user!'
                     });
                 }
 
@@ -129,11 +128,11 @@ module.exports = function (passport, user) {
 
             }).catch(function (error) {
 
-                console.log(`${logSymbols.error} ${error}`);
+                console.log(`${error}`);
 
                 // Return an error if signin failed
                 return done(null, false, {
-                    message: logSymbols.error + 'Something went wrong with your sign in!'
+                    message: 'Something went wrong with your sign in!'
                 });
             });
         }

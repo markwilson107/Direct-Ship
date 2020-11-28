@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars')
 const db = require("./models");
 const logSymbols = require("log-symbols");
 const path = require('path')
+const flash = require('connect-flash');
 
 // EXPRESS SETUP
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const publicPath = path.resolve(__dirname, "public");
 app.use(express.static(publicPath));
+app.use(flash());
 
 // HANDLEBARS
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -34,7 +36,8 @@ console.log(`// ${logSymbols.info} Launching TCWA: Direct-Ship //`)
 console.log(`///////////////////////////////////\n`)
 
 // CONNECT TO DATABASE AND LAUNCH APP
-db.sequelize.sync({ force: true }).then(function () {
+// { force: true } <- Temporarily disabled whilst testing
+db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log(`\n${logSymbols.success} App listening on PORT ${PORT}\n`);
   });

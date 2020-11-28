@@ -3,12 +3,14 @@ var exports = module.exports = {}
 
 // Signup process
 exports.signup = function (request, result) {
-    result.render('signup');
+    let message = request.flash('error');
+    result.render('signup', {error: message});
 }
 
 // Login process
 exports.signin = function (request, result) {
-    result.render('signin');
+    let message = request.flash('error');
+    result.render('signin', {error: message});
 }
 
 // Inactive account
