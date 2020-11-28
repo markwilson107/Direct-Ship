@@ -1,5 +1,7 @@
 // DEPENDENCIES
 const authController = require('../controllers/authcontroller.js');
+// const usersController = require('../controllers/users.js');
+const db = require("../models");
 
 // MODULE EXPORTS
 module.exports = function (app, passport) {
@@ -9,10 +11,24 @@ module.exports = function (app, passport) {
     app.get('/signin', authController.signin);
     app.get('/logout', authController.logout);
     app.get('/inactive', isLoggedIn, authController.inactive);
-    app.get('/*', isLoggedIn, authController.dashboard);
-
+    
     // PRIMARY DASHBOARD
     app.get('/dashboard', isLoggedIn, authController.dashboard);
+    
+    // USERS DASHBOARD
+    app.get("/api/users", function(request, res) {
+      
+        console.log("GETTING USERS");
+       
+        db.User.findAll({}).then(function(results) {
+          res.json(results);
+        });
+      });
+
+    app.get('/users', isLoggedIn, authController.users);
+    
+    // ALL OTHER PAGES
+    app.get('/*', isLoggedIn, authController.dashboard);
 
     // SIGNUP POST
     app.post('/signup', passport.authenticate('local-signup', {

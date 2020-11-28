@@ -27,7 +27,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // ROUTES
-require('./config/passport/passport.js')(passport, db.user);
+require('./config/passport/passport.js')(passport, db.User);
 require('./routes/authorisation.js')(app, passport);
 
 // INITIAL SETUP

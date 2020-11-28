@@ -5,7 +5,7 @@
 module.exports = function(sequelize, Sequelize) {
  
     // CREATE DEFAULT USER TABLE
-    let User = sequelize.define('user', {
+    let User = sequelize.define('User', {
  
         id: {
             autoIncrement: true,
