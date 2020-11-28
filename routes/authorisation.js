@@ -35,6 +35,7 @@ module.exports = function (app, passport) {
         if (request.user){
             
             if (request.isAuthenticated() && request.user.status == "active"){
+                
                 return next();
             }
             else {

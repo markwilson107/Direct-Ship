@@ -1,5 +1,6 @@
 // DEPENDENCIES
 const bCrypt = require('bcrypt-nodejs');
+const { NOW } = require('sequelize');
 
 // MODULE EXPORTS
 module.exports = function (passport, user) {
@@ -124,6 +125,10 @@ module.exports = function (passport, user) {
 
                 // Return the user's info
                 let userinfo = user.get();
+
+                // Update when the user last logged in, as login successful
+                User.update({last_login: Date.now()}, {where: {id: userinfo.id}})
+
                 return done(null, userinfo);
 
             }).catch(function (error) {
