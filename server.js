@@ -34,7 +34,7 @@ console.log(`// ${logSymbols.info} Launching TCWA: Direct-Ship //`)
 console.log(`///////////////////////////////////\n`)
 
 // CONNECT TO DATABASE AND LAUNCH APP
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log(`\n${logSymbols.success} App listening on PORT ${PORT}\n`);
   });
