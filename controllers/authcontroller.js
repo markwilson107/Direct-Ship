@@ -33,3 +33,7 @@ exports.logout = function (request, result) {
 exports.dashboard = function (request, result) {
     result.render('dashboard', {layout: 'backend'});
 }
+
+exports.users = function (request, result) {
+    result.render('users', {layout: 'users'});
+}

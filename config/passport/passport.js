@@ -1,6 +1,5 @@
 // DEPENDENCIES
 const bCrypt = require('bcrypt-nodejs');
-const { NOW } = require('sequelize');
 
 // MODULE EXPORTS
 module.exports = function (passport, user) {
