@@ -7,9 +7,8 @@ body {
     background-size: cover;
 }
 
-/* Made with love by Mutiullah Samim*/
-
 @import url('https://fonts.googleapis.com/css?family=Numans');
+
 html, body {
     background: url('/assets/img/truck.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -27,7 +26,6 @@ html, body {
 }
 
 .card {
-    height: 300px;
     margin-top: auto;
     margin-bottom: auto;
     width: 400px;

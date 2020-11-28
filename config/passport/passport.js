@@ -118,7 +118,6 @@ module.exports = function (passport, user) {
 
                 // Check if user is active
                 if (user.status != "active"){
-                    console.log("USer.status!: "+user.status);
                     return done(null, false, {
                         message: logSymbols.warning + 'Inactive user!'
                     });
