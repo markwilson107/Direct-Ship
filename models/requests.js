@@ -11,22 +11,13 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
  
-        userId: {
-            type: Sequelize.INTEGER,
-            notNull: true
-        },
- 
+
         requestingBranch: {
             type: Sequelize.INTEGER,
             notNull: true
         },
  
         requiringBranch: {
-            type: Sequelize.INTEGER,
-            notNull: true
-        },
- 
-        customerId: {
             type: Sequelize.INTEGER,
             notNull: true
         },
@@ -51,21 +42,12 @@ module.exports = function(sequelize, Sequelize) {
         freightCostAllocation: {
             type: Sequelize.STRING
         },
-   
-        freightMethod: {
-            type: Sequelize.INTEGER,
-            notNull: true
-        },
+
  
         notes: {
             type: Sequelize.TEXT
-        },
- 
-        status: {
-            type: Sequelize.INTEGER,
-            notNull: true
-        }
- 
+        } 
+   
     });
  
     Request.associate = function(models) {

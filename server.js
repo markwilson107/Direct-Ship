@@ -29,6 +29,7 @@ app.set("view engine", "handlebars");
 // ROUTES
 require('./config/passport/passport.js')(passport, db.user);
 require('./routes/authorisation.js')(app, passport);
+require("./routes/post-request.js")(app);
 
 // INITIAL SETUP
 console.log(`\n///////////////////////////////////`)
