@@ -1,76 +1,120 @@
- <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header" data-target="#collapse{{this.dataValues.id}}">
-                        <div class="row">
-                            <div class="col-1">
-                                id: {{this.dataValues.id}}
-                            </div>
-                            <div class="col-3">
-                                Requested by:
-                            </div>
-                            <div class="col-3">
-                                Requested on:
-                            </div>
-                            <div class="col-3">
-                                Freight method:
-                            </div>
-                            <div class="col-2">
-                                Status
-                            </div>
-                        </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header" data-target="#collapse-{{this.dataValues.id}}">
+                <div class="row no-gutters">
+                    <div class="col-1">
+                        ID: <span class="bold">{{this.dataValues.id}}</span>
                     </div>
-
-                    <div id="collapse{{this.dataValues.id}}" class="collapse">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-4">
-                                    <label for="destinationAddress">Destination Address:</label>
-                                    <textarea class="form-control" id="destinationAddress" rows="3"
-                                        style="resize:none; background-color: white;"
-                                        readonly>45 harvest lakes blvd</textarea>
-                                </div>
-                                <div class="col-4">
-                                    Freight method:
-                                </div>
-                                <div class="col-2">
-                                    IBT:
-                                </div>
-                                <div class="col-2">
-                                    Proforma:
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 notes-section">
-                                    <label for="notes">Notes:</label>
-                                    <textarea class="form-control" id="notes" rows="6"
-                                        style="resize:none; background-color: white;" readonly>{{this.dataValues.notes}}</textarea>
-                                    <div class="input-group">
-                                        <input class="form-control" id="add-note{{this.dataValues.id}}"
-                                            style="resize:none;"></input>
-                                        <span>
-                                            <button class="btn btn-primary">Submit</button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-4 parts-section">
-                                    <label for="parts">Parts:</label>
-                                    <textarea class="form-control" id="parts" rows="8"
-                                        style="resize:none; background-color: white;" readonly>{{this.dataValues.parts}}</textarea>
-                                </div>
-                                <div class="col-2 status-section">
-                                    Status:
-                                    <ul>
-                                        <li><button class="btn btn-danger">Issue</button></li>
-                                        <li><button class="btn btn-light">Placeholder</button></li>
-                                        <li><button class="btn btn-light">Placeholder</button></li>
-                                        <li><button class="btn btn-success">Complete</button></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-3">
+                        Requested on: <span class="req-on bold">{{this.dataValues.createdAt}}</span>
+                    </div>
+                    <div class="col-6">
+                        Freight method: <span class="bold">{{this.dataValues.Freightmethod.dataValues.freightMethod}}</span>
+                    </div>
+                    <div class="col-2">
+                        Status <span class="bold">{{this.dataValues.statusId}}</span>
                     </div>
                 </div>
             </div>
 
+            <div id="collapse-{{this.dataValues.id}}" class="collapse">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <!-- Customer -->
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Customer:</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    value="{{this.dataValues.Customer.dataValues.name}}"
+                                    style="background-color: white;" aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                            <!-- Contact -->
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Contact:</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    value="{{this.dataValues.Customer.dataValues.contact}}"
+                                    style="background-color: white;" aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                            <!-- Phone -->
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Phone:</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    style="background-color: white;"
+                                    value="{{this.dataValues.Customer.dataValues.phone}}"
+                                    aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <!-- Customer address -->
+                            <label for="destinationAddress">Customer Address:</label>
+                            <textarea class="form-control" id="destinationAddress" rows="3"
+                                style="resize:none; background-color: white;"
+                                readonly>{{this.dataValues.Customer.dataValues.address}}</textarea>
+                        </div>
+                        <div class="col-4">
+                            <!-- IBT -->
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">IBT:</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    value="{{this.dataValues.ibt}}" style="background-color: white;"
+                                    aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                            <!-- Proforma -->
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Proforma:</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    value="{{this.dataValues.proforma}}" style="background-color: white;"
+                                    aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 notes-section">
+                            <!-- Notes -->
+                            <label for="notes">Notes:</label>
+                            <textarea class="form-control notes" id="notes" rows="6" data-id="{{this.dataValues.id}}"
+                                style="resize:none; background-color: white;" data-value="Created by: {{this.dataValues.User.dataValues.firstname}} {{this.dataValues.User.dataValues.lastname}}&#13;&#10;{{this.dataValues.notes}}"
+                                readonly>{{this.dataValues.notes}}</textarea>
+                            <div class="input-group">
+                                <input class="form-control" id="add-note-{{this.dataValues.id}}"
+                                    style="resize:none;"></input>
+                                <span>
+                                    <button class="btn btn-primary">Submit</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-4 parts-section">
+                            <!-- Parts -->
+                            <label for="parts">Parts:</label>
+                            <textarea class="form-control" id="parts" rows="8"
+                                style="resize:none; background-color: white;"
+                                readonly>{{this.dataValues.parts}}</textarea>
+                        </div>
+                        <div class="col-2 status-section">
+                            <!-- Status -->
+                            Status:
+                            <ul>
+                                <li><button class="btn btn-danger">Issue</button></li>
+                                <li><button class="btn btn-light">Placeholder</button></li>
+                                <li><button class="btn btn-light">Placeholder</button></li>
+                                <li><button class="btn btn-success">Complete</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+
+</div>

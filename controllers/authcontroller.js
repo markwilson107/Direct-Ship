@@ -32,7 +32,9 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
-    db.Request.findAll({}).then(function(data) {
+    db.Request.findAll({
+        include: [ db.Customer, db.Freightmethod, db.User]
+    }).then(function(data) {
         result.render('dashboard', {layout: 'backend', request: data});
     });
     

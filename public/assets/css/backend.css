@@ -1,17 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
+
+.bg-black {
+    background-color: black;
+}
+
+.bold {
+    font-weight: 700;
+}
+
 .container {
     height: 100%;
-    align-content: center;
 }
 
 .card {
     margin-top: auto;
     margin-bottom: auto;
     width: 100%;
+    background-color: rgba(0,0,0,.03);
+
 }
 
 .card-header {
     cursor: pointer;
+    background-color: #e9ecef;  
 }
 
 .status-section .btn {
@@ -39,6 +50,6 @@
     margin-left: 5px;
 }
 
-textarea {
-    background-color: white;
+.input-group-text {
+    min-width:80px;
 }
