@@ -31,9 +31,18 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
-    result.render('dashboard', {layout: 'backend'});
+    
+    result.render('dashboard', {layout: 'backend', admin: checkAdmin(request.user.role)});
 }
 
 exports.users = function (request, result) {
-    result.render('users', {layout: 'users'});
+    result.render('users', {layout: 'users', admin: checkAdmin(request.user.role)});
+}
+
+function checkAdmin(role){
+    let adminCheck = false;
+    if (role == "admin"){
+        adminCheck = true;
+    }
+    return adminCheck;
 }
