@@ -1,5 +1,6 @@
 // MODULE EXPORTS
 var exports = module.exports = {}
+var db = require("../models");
 
 // Signup process
 exports.signup = function (request, result) {
@@ -31,8 +32,11 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
-    
-    result.render('dashboard', {layout: 'backend', admin: checkAdmin(request.user.role)});
+        db.Request.findAll({
+        include: [ db.Customer, db.Freightmethod, db.User]
+    }).then(function(data) {
+        result.render('dashboard', {layout: 'backend', request: data, admin: checkAdmin(request.user.role)});
+    });
 }
 
 exports.users = function (request, result) {
@@ -45,4 +49,9 @@ function checkAdmin(role){
         adminCheck = true;
     }
     return adminCheck;
+
+exports.newrequest = function (request, result) {
+    console.log("Here 1")
+    result.render('newrequest', {layout: 'newrequest'});
+
 }

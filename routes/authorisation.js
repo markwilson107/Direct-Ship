@@ -28,7 +28,10 @@ module.exports = function (app, passport) {
     app.get('/users', isAdmin, authController.users);
     
     // ALL OTHER PAGES
+    app.get('/newrequest', isLoggedIn, authController.newrequest);
     app.get('/*', isLoggedIn, authController.dashboard);
+    
+
 
     // SIGNUP POST
     app.post('/signup', passport.authenticate('local-signup', {
