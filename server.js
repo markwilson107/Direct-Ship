@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // APP SETTINGS
-app.use(session({ secret: 'tcwa', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'tcwa', resave: true, saveUninitialized: true, cookie: { maxAge: 10000000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
