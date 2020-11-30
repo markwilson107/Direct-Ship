@@ -49,6 +49,7 @@ function checkAdmin(role){
         adminCheck = true;
     }
     return adminCheck;
+}
 
 exports.newrequest = function (request, result) {
     console.log("Here 1")
