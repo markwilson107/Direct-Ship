@@ -43,6 +43,9 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.STRING
         },
 
+        freightAccount: {
+          type: Sequelize.STRING
+       },
  
         notes: {
             type: Sequelize.TEXT
