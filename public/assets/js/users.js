@@ -113,7 +113,6 @@ $(document).ready(function () {
     });
   }
 
-
   $(document.body).on('change', ".status", function (e) {
     console.log(`Status change to id ${$(this).data("id")} of ${$(this).val()}`);
     buttons[$(this).data("id")].show();
@@ -126,8 +125,8 @@ $(document).ready(function () {
 
   $(document.body).on('click', ".apply", function (e) {
     console.log(`Apply change to apply ${$(this).data("id")}`);
-    console.log(`-> $(roles[$(this).data("id")].val())`)
-    console.log(`-> $(statuses[$(this).data("id")].val())`)
+    console.log(`-> ${roles[$(this).data("id")].val()}`)
+    console.log(`-> ${statuses[$(this).data("id")].val()}`)
 
     let theId = $(this).data("id")+1;
     let newRole = roles[$(this).data("id")].val();

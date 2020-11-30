@@ -25,7 +25,7 @@ module.exports = function (app, passport) {
         });
       });
 
-    app.get('/users', isLoggedIn, authController.users);
+    app.get('/users', isAdmin, authController.users);
     
     // ALL OTHER PAGES
     app.get('/*', isLoggedIn, authController.dashboard);
@@ -62,6 +62,29 @@ module.exports = function (app, passport) {
                 }
                 else {
                     response.redirect('/signin'); 
+                }
+            }
+        }  
+        else {
+            response.redirect('/signin'); 
+        }
+    }
+    
+    function isAdmin(request, response, next) {
+        if (request.user){
+            
+            if (request.isAuthenticated() && request.user.status == "active" && request.user.role == "admin"){
+                
+                return next();
+            }
+            else {
+                if (request.user.status == "inactive"){
+                    request.session.destroy(function (error) {
+                        response.render('inactive');
+                    }); 
+                }
+                else {
+                    response.redirect('/dashboard'); 
                 }
             }
         }  
