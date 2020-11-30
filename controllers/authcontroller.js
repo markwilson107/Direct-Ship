@@ -43,3 +43,8 @@ exports.dashboard = function (request, result) {
 exports.users = function (request, result) {
     result.render('users', {layout: 'users'});
 }
+
+exports.newrequest = function (request, result) {
+    console.log("Here 1")
+    result.render('newrequest', {layout: 'newrequest'});
+}

@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+ body{
+    background-color: rgba(0,0,0,.03);
+ }
+ 
+.bg-black {
+    background-color: black;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.container {
+    height: 100%;
+}
+
+.input-group-text {
+    min-width:80px;
+}
