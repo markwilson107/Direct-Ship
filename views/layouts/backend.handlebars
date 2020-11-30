@@ -25,12 +25,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="dashboard">Home <span class="sr-only">(current)</span></a>
                 </li>
+                {{#if admin}}
                 <li class="nav-item">
                     <a class="nav-link" href="newrequest">New Request</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="users">Users</a>
                 </li>
+                {{/if}}
                 <li class="nav-item">
                     <a class="nav-link" href="logout">Logout</a>
                 </li>
