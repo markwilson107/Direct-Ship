@@ -4,6 +4,29 @@
             <h1>Users</h1>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12 text-center mt-3">
+            <table class="table bg-dark align-middle">
+                <tbody id="filterTable" class="bg-dark text-white">
+                    <tr>
+                        <td class="align-middle">Filter Users by:</td>
+                        <td><select id="filterRole" class="custom-select">
+                                <option value="all" selected>-- Role --</option>
+                                <option value="admin">Admin</option>
+                                <option value="parts">Parts</option>
+                                <option value="warehouse">Warehouse</option>
+                            </select></td>
+                        <td><select id="filterStatus" class="custom-select">
+                                <option value="all" selected>-- Status --</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <table class="table bg-white align-middle">
         <thead>
             <tr>
@@ -14,8 +37,8 @@
                 <th scope="col">Last Login</th>
             </tr>
         </thead>
-        <tbody id="usersTable">
-            
+        <tbody id="usersTable" class="bg-white">
+
         </tbody>
     </table>
 </div>

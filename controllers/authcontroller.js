@@ -53,6 +53,6 @@ function checkAdmin(role){
 
 exports.newrequest = function (request, result) {
     console.log("Here 1")
-    result.render('newrequest', {layout: 'newrequest'});
+    result.render('newrequest', {layout: 'newrequest', admin: checkAdmin(request.user.role)});
 
 }
