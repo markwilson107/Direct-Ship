@@ -151,7 +151,7 @@ $(document).ready(function () {
   });
 
   $(document.body).on('click', ".apply", function (e) {
-    console.log(`Apply change to apply ${$(this).data("id")}`);
+    console.log(`Apply change to id ${$(this).data("id")}`);
     console.log(`-> ${roles[$(this).data("id")].val()}`)
     console.log(`-> ${statuses[$(this).data("id")].val()}`)
 
@@ -165,16 +165,15 @@ $(document).ready(function () {
       status: newStatus
     })
       .then(function (data) {
-        window.location.replace("/users");
+        // window.location.replace("/users");
+        getUsers();
       })
   });
 
   function checkSelection(whichRole, whichStatus) {
 
-    console.log(whichRole + ", "+whichStatus + ", "+filterRoleBy + ", "+filterStatusBy)
     if ((filterRoleBy == "all") && (filterStatusBy == "all")) {
-      console.log("returned all");
-        return true;
+      return true;
     }
     else if ((whichRole == filterRoleBy) && (filterStatusBy == "all")) {
         return true;
