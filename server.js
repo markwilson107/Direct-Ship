@@ -36,8 +36,12 @@ console.log(`\n///////////////////////////////////`)
 console.log(`// ${logSymbols.info} Launching TCWA: Direct-Ship //`)
 console.log(`///////////////////////////////////\n`)
 
-// CONNECT TO DATABASE AND LAUNCH APP
+// CHECK FOR COMMAND LINE ARGUMENT TO CREATE SEEDS
+if (process.argv[2] == "seeds"){
+  require("./config/seeds.js");
+}
 
+// CONNECT TO DATABASE AND LAUNCH APP
 // { force: true } <- Temporarily disabled whilst testing
 db.sequelize.sync().then(function () {
 

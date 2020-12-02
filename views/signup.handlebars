@@ -35,7 +35,7 @@
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
                         </div>
                         <input type="password" class="form-control" name="password"
-                            placeholder="Please enter your password">
+                            placeholder="Please enter your password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="-- include at least 1 number, uppercase and lowercase character.">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Sign Up" class="btn float-right login_btn">
