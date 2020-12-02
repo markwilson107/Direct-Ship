@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
-
 .topbar {
     border-top: 25px solid #f0d443;
 }
@@ -9,19 +8,28 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+}
 
-  .pageTitle {
-
-    background-color: rgba(0,0,0,.3);
+.pageTitle {
+    background-color: rgba(0, 0, 0, .4);
     padding: 30px;
     max-width: 200px;
     color: white;
     margin: auto;
     font-size: 50px;
     font-weight: 500;
+}
 
-  }
+.welcomeTitle {
+    background-color: rgba(0, 0, 0, .4);
+    padding: 30px;
+    max-width: 500px;
+    color: white;
+    margin: auto;
+    font-size: 50px;
+    font-weight: 500;
+}
+
 .usersImg {
     height: 600px;
     background-image: url("/assets/img/users.jpg");
@@ -33,10 +41,21 @@
     background-position-y: center;
 }
 
-body{
-    background-color: rgba(0,0,0,.03);
+.dashboardImg {
+    height: 600px;
+    background-image: url("/assets/img/dashboard.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+
+body {
+    background-color: rgba(0, 0, 0, .03);
     padding-top: 160px;
- }
+}
 
 .bg-black {
     background-color: black;
@@ -54,13 +73,12 @@ body{
     margin-top: auto;
     margin-bottom: auto;
     width: 100%;
-    background-color: rgba(0,0,0,.03);
-
+    background-color: rgba(0, 0, 0, .03);
 }
 
 .card-header {
     cursor: pointer;
-    background-color: #e9ecef;  
+    background-color: #e9ecef;
 }
 
 .status-section .btn {
@@ -89,5 +107,5 @@ body{
 }
 
 .input-group-text {
-    min-width:80px;
+    min-width: 80px;
 }
