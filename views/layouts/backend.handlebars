@@ -13,7 +13,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top topbar">
         <img src="./assets/img/tcwa-logo.png" style="width: 160px;" class='m-2'>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,9 +28,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="newrequest">New Request</a>
                 </li>
+                {{#if admin}}
                 <li class="nav-item">
                     <a class="nav-link" href="users">Users</a>
                 </li>
+                {{/if}}
                 <li class="nav-item">
                     <a class="nav-link" href="logout">Logout</a>
                 </li>
