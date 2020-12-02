@@ -50,6 +50,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
+    margin-bottom: 20px;
 }
 
 body {
@@ -71,7 +72,7 @@ body {
 
 .card {
     margin-top: auto;
-    margin-bottom: auto;
+    margin-bottom: 10px;
     width: 100%;
     background-color: rgba(0, 0, 0, .03);
 }
