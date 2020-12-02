@@ -64,8 +64,12 @@ module.exports = function(sequelize, Sequelize) {
  
         notes: {
             type: Sequelize.TEXT
-        } 
+        } ,
    
+        connote: {
+          type: Sequelize.STRING
+       },
+ 
     });
  
     Request.associate = function(models) {
