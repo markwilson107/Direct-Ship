@@ -1,7 +1,41 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
+.topbar {
+    border-top: 25px solid #f0d443;
+}
+
+.centered {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .pageTitle {
+
+    background-color: rgba(0,0,0,.3);
+    padding: 30px;
+    max-width: 200px;
+    color: white;
+    margin: auto;
+    font-size: 50px;
+    font-weight: 500;
+
+  }
+.usersImg {
+    height: 600px;
+    background-image: url("/assets/img/users.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+
 body{
     background-color: rgba(0,0,0,.03);
+    padding-top: 160px;
  }
 
 .bg-black {

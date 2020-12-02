@@ -33,7 +33,7 @@ $(document).ready(function () {
           newRole = $("<select>");
           newRole.addClass("custom-select");
           newRole.addClass("role");
-          newRole.data("id", i);
+          newRole.data("id", data[i].id);
 
           newRole1 = $("<option>");
           newRole1.val("admin");
@@ -62,14 +62,14 @@ $(document).ready(function () {
           newRole.append(newRole1, newRole2, newRole3);
           newTDrole.append(newRole);
 
-          roles[i] = newRole;
+          roles[data[i].id] = newRole;
 
           newTDstatus = $("<td>");
 
           newStatus = $("<select>");
           newStatus.addClass("custom-select");
           newStatus.addClass("status");
-          newStatus.data("id", i);
+          newStatus.data("id", data[i].id);
 
           newStatus1 = $("<option>");
           newStatus1.val("active");
@@ -89,7 +89,7 @@ $(document).ready(function () {
 
           newStatus.append(newStatus1, newStatus2);
 
-          statuses[i] = newStatus;
+          statuses[data[i].id] = newStatus;
 
           newTDstatus.append(newStatus);
 
@@ -112,13 +112,13 @@ $(document).ready(function () {
           newApplyBtn.addClass("btn-success");
           newApplyBtn.addClass("apply");
           newApplyBtn.addClass("rounded");
-          newApplyBtn.data("id", i);
+          newApplyBtn.data("id", data[i].id);
           newApplyBtn.html('<i class="fa fa-check"></i>')
 
           newApply.append(newApplyBtn);
           newApplyBtn.hide();
 
-          buttons[i] = newApplyBtn;
+          buttons[data[i].id] = newApplyBtn;
 
           newTr.append(newName, newEmail, newTDrole, newTDstatus, newLogin, newApply);
           $("#usersTable").append(newTr);
@@ -155,7 +155,7 @@ $(document).ready(function () {
     console.log(`-> ${roles[$(this).data("id")].val()}`)
     console.log(`-> ${statuses[$(this).data("id")].val()}`)
 
-    let theId = $(this).data("id") + 1;
+    let theId = $(this).data("id");
     let newRole = roles[$(this).data("id")].val();
     let newStatus = statuses[$(this).data("id")].val();
 
@@ -167,6 +167,7 @@ $(document).ready(function () {
       .then(function (data) {
         // window.location.replace("/users");
         getUsers();
+        console.log("Updated");
       })
   });
 
