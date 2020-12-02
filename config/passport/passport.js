@@ -38,7 +38,7 @@ module.exports = function (passport, user) {
 
             // Create an encrypted password using bcrypt
             let generateHash = function (password) {
-                return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
+                return bCrypt.hashSync(password + process.env.dbSaltReadable, process.env.dbSalt, null);
             };
 
             // Find an existing user
@@ -95,7 +95,7 @@ module.exports = function (passport, user) {
 
             // Check password is valid
             let isValidPassword = function (userpass, password) {
-                return bCrypt.compareSync(password, userpass);
+                return bCrypt.compareSync(password + process.env.dbSaltReadable, userpass);
             }         
 
             // Check if user exists
