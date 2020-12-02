@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
- body{
+
+.topbar {
+    border-top: 25px solid #f0d443;
+}
+
+body{
     background-color: rgba(0,0,0,.03);
+    padding-top: 170px;
  }
  
 .bg-black {

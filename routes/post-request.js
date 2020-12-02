@@ -10,4 +10,21 @@ module.exports = function(app) {
     });
   });
 
+  app.post("/api/update_user", function(req, res) {
+    // console.log(req.body)
+    // db.User.update(req.body).then(function(dbPostRequest) {
+    //   res.json(dbPostRequest);
+    // });
+
+    db.User.update(
+      req.body,
+      {
+        where: {
+          id: req.body.id
+        }
+      }).then(function (dbPost) {
+        res.json(dbPost);
+      });
+  });
+
 }

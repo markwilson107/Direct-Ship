@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // APP SETTINGS
-app.use(session({ secret: 'tcwa', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'tcwa', resave: true, saveUninitialized: true, cookie: { maxAge: 10000000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
@@ -36,8 +36,12 @@ console.log(`\n///////////////////////////////////`)
 console.log(`// ${logSymbols.info} Launching TCWA: Direct-Ship //`)
 console.log(`///////////////////////////////////\n`)
 
-// CONNECT TO DATABASE AND LAUNCH APP
+// CHECK FOR COMMAND LINE ARGUMENT TO CREATE SEEDS
+if (process.argv[2] == "seeds"){
+  require("./config/seeds.js");
+}
 
+// CONNECT TO DATABASE AND LAUNCH APP
 // { force: true } <- Temporarily disabled whilst testing
 db.sequelize.sync().then(function () {
 
