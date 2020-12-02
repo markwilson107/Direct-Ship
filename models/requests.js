@@ -11,7 +11,6 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
  
-
         requestingBranch: {
             type: Sequelize.INTEGER,
             notNull: true
@@ -21,11 +20,27 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER,
             notNull: true
         },
- 
-        ibt: {
-            type: Sequelize.STRING
-        },
- 
+        
+        customerName: {
+          type: Sequelize.STRING
+      },
+
+      customerContact: {
+          type: Sequelize.STRING
+      },
+
+      customerPhone: {
+          type: Sequelize.STRING
+      },
+
+      customerAddress: {
+        type: Sequelize.STRING
+    },
+    
+    ibt: {
+      type: Sequelize.STRING
+  },
+
         proforma: {
             type: Sequelize.STRING
         },
@@ -43,6 +58,9 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.STRING
         },
 
+        freightAccount: {
+          type: Sequelize.STRING
+       },
  
         notes: {
             type: Sequelize.TEXT
@@ -51,13 +69,11 @@ module.exports = function(sequelize, Sequelize) {
     });
  
     Request.associate = function(models) {
-        // We're saying that a Post should belong to an Author
-        // A Post can't be created without an Author due to the foreign key constraint
-        Request.belongsTo(models.Customer, {
-            foreignKey: {
-              allowNull: false
-            }
-          });
+      Request.belongsTo(models.Customer, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
           Request.belongsTo(models.Freightmethod, {
             foreignKey: {
               allowNull: false
