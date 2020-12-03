@@ -54,7 +54,7 @@ function checkAdmin(role){
 exports.newrequest = function (request, result) {
 
     db.Freightmethod.findAll().then(function(data) {
-        result.render('newrequest', {layout: 'newrequest', request: data});
+        result.render('newrequest', {layout: 'newrequest', request: data, admin: checkAdmin(request.user.role)});
     });
     // result.render('newrequest', {layout: 'newrequest'});
 
