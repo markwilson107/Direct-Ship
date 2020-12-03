@@ -42,14 +42,14 @@ module.exports = function (passport, user) {
             };
 
             // Find an existing user
-            User.findOne({ where: { email: email }}).then(function (user) {
+            User.findOne({ where: { email: email } }).then(function (user) {
 
                 // If this user already exists, error
                 if (user) {
                     return done(null, false, {
                         message: 'That email is already taken!'
                     });
-                } 
+                }
                 // Otherwise create user
                 else {
 
@@ -86,7 +86,7 @@ module.exports = function (passport, user) {
         {
             usernameField: 'email',
             passwordField: 'password',
-            passReqToCallback: true 
+            passReqToCallback: true
         },
 
         function (request, email, password, done) {
@@ -96,10 +96,10 @@ module.exports = function (passport, user) {
             // Check password is valid
             let isValidPassword = function (userpass, password) {
                 return bCrypt.compareSync(password + process.env.dbSaltReadable, userpass);
-            }         
+            }
 
             // Check if user exists
-            User.findOne({ where: { email: email }}).then(function (user) {
+            User.findOne({ where: { email: email } }).then(function (user) {
 
                 // Check if user does not exist
                 if (!user) {
@@ -116,7 +116,7 @@ module.exports = function (passport, user) {
                 }
 
                 // Check if user is active
-                if (user.status != "active"){
+                if (user.status != "active") {
                     return done(null, false, {
                         message: 'Inactive user!'
                     });
@@ -126,7 +126,7 @@ module.exports = function (passport, user) {
                 let userinfo = user.get();
 
                 // Update when the user last logged in, as login successful
-                User.update({last_login: Date.now()}, {where: {id: userinfo.id}})
+                User.update({ last_login: Date.now() }, { where: { id: userinfo.id } })
 
                 return done(null, userinfo);
 

@@ -5,13 +5,13 @@ var db = require("../models");
 // Signup process
 exports.signup = function (request, result) {
     let message = request.flash('error');
-    result.render('signup', {error: message});
+    result.render('signup', { error: message });
 }
 
 // Login process
 exports.signin = function (request, result) {
     let message = request.flash('error');
-    result.render('signin', {error: message});
+    result.render('signin', { error: message });
 }
 
 // Inactive account
@@ -32,30 +32,31 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
-        db.Request.findAll({
-        include: [ db.Customer, db.Freightmethod, db.User]
-    }).then(function(data) {
-        result.render('dashboard', {layout: 'backend', request: data, admin: checkAdmin(request.user.role)});
+    db.Request.findAll({
+        include: [db.Customer, db.Freightmethod, db.User]
+    }).then(function (data) {
+        result.render('dashboard', { layout: 'backend', request: data, admin: checkAdmin(request.user.role) });
     });
 }
 
+// Access users table
 exports.users = function (request, result) {
-    result.render('users', {layout: 'users', admin: checkAdmin(request.user.role)});
+    result.render('users', { layout: 'users', admin: checkAdmin(request.user.role) });
 }
 
-function checkAdmin(role){
+// Access new request page
+exports.newrequest = function (request, result) {
+
+    db.Freightmethod.findAll().then(function (data) {
+        result.render('newrequest', { layout: 'newrequest', request: data, admin: checkAdmin(request.user.role) });
+    });
+}
+
+// Check if user is an administrator
+function checkAdmin(role) {
     let adminCheck = false;
-    if (role == "admin"){
+    if (role == "admin") {
         adminCheck = true;
     }
     return adminCheck;
-}
-
-exports.newrequest = function (request, result) {
-
-    db.Freightmethod.findAll().then(function(data) {
-        result.render('newrequest', {layout: 'newrequest', request: data, admin: checkAdmin(request.user.role)});
-    });
-    // result.render('newrequest', {layout: 'newrequest'});
-
 }

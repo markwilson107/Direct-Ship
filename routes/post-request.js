@@ -1,21 +1,19 @@
+// DEPENDENCIES
 var db = require("../models");
 
-module.exports = function(app) {
-  // POST route for saving a new post
-  
-  
-  app.post("/api/newrequest", function(req, res) {
-    db.Request.create(req.body).then(function(dbPostRequest) {
+// MODULE EXPORTS
+module.exports = function (app) {
+
+  // POST route for saving a new request
+  app.post("/api/newrequest", function (req, res) {
+    db.Request.create(req.body).then(function (dbPostRequest) {
       console.log(dbPostRequest);
       res.json(dbPostRequest);
     });
   });
 
-  app.post("/api/update_user", function(req, res) {
-    // console.log(req.body)
-    // db.User.update(req.body).then(function(dbPostRequest) {
-    //   res.json(dbPostRequest);
-    // });
+  // Update user
+  app.post("/api/update_user", function (req, res) {
 
     db.User.update(
       req.body,

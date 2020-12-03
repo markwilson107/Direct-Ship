@@ -5,7 +5,7 @@
                 <h3>Create Account</h3>
             </div>
             <div class="card-body">
-               <form id="signup" name="signup" method="post" action="/signup">
+                <form id="signup" name="signup" method="post" action="/signup">
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-at"></i></span>
@@ -35,7 +35,9 @@
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
                         </div>
                         <input type="password" class="form-control" name="password"
-                            placeholder="Please enter your password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="-- include at least 1 number, uppercase and lowercase character.">
+                            placeholder="Please enter your password"
+                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                            title="-- include at least 1 number, uppercase and lowercase character.">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Sign Up" class="btn float-right login_btn">

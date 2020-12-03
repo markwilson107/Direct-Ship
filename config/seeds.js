@@ -106,7 +106,7 @@ const createCustomers = () => {
             console.log(`${i} -> Customer ${newCustomer.name} successfully created.`)
             customerIds.push(newCustomer.id);
 
-             // IF SEEDERS DONE, CALL NEXT FUNCTION
+            // IF SEEDERS DONE, CALL NEXT FUNCTION
             if (customerIds.length >= 4) {
                 createRequests();
             }
