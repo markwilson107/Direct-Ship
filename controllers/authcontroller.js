@@ -47,8 +47,11 @@ exports.users = function (request, result) {
 // Access new request page
 exports.newrequest = function (request, result) {
 
+    // Send current logged in user id to new request form
+    let currentUsedId = request.user.id;
+
     db.Freightmethod.findAll().then(function (data) {
-        result.render('newrequest', { layout: 'newrequest', request: data, admin: checkAdmin(request.user.role) });
+        result.render('newrequest', { layout: 'newrequest', request: data, admin: checkAdmin(request.user.role), userId: currentUsedId });
     });
 }
 
