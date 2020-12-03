@@ -78,23 +78,27 @@ exports.dashboard = function (request, result) {
 
 }
 
+// Access users table
 exports.users = function (request, result) {
-    result.render('users', {layout: 'users', admin: checkAdmin(request.user.role)});
+    result.render('users', { layout: 'users', admin: checkAdmin(request.user.role) });
 }
 
-function checkAdmin(role){
+// Access new request page
+exports.newrequest = function (request, result) {
+
+    // Send current logged in user id to new request form
+    let currentUsedId = request.user.id;
+
+    db.Freightmethod.findAll().then(function (data) {
+        result.render('newrequest', { layout: 'newrequest', request: data, admin: checkAdmin(request.user.role), userId: currentUsedId });
+    });
+}
+
+// Check if user is an administrator
+function checkAdmin(role) {
     let adminCheck = false;
-    if (role == "admin"){
+    if (role == "admin") {
         adminCheck = true;
     }
     return adminCheck;
-}
-
-exports.newrequest = function (request, result) {
-
-    db.Freightmethod.findAll().then(function(data) {
-        result.render('newrequest', {layout: 'newrequest', request: data, admin: checkAdmin(request.user.role)});
-    });
-    // result.render('newrequest', {layout: 'newrequest'});
-
 }
