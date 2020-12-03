@@ -1,24 +1,24 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header" data-target="#collapse-{{this.dataValues.id}}">
+            <div id="request-header" class="card-header" data-target="#collapse-{{this.id}}" data-status="{{this.status}}">
                 <div class="row no-gutters">
                     <div class="col-1">
-                        ID: <span class="bold">{{this.dataValues.id}}</span>
+                        ID: <span class="bold">{{this.id}}</span>
                     </div>
                     <div class="col-3">
-                        Requested on: <span class="req-on bold">{{this.dataValues.createdAt}}</span>
+                        Requested on: <span class="req-on bold">{{this.reqOn}}</span>
                     </div>
                     <div class="col-6">
-                        Freight method: <span class="bold">{{this.dataValues.Freightmethod.dataValues.freightMethod}}</span>
+                        Freight method: <span class="bold">{{this.freightMethod}}</span>
                     </div>
-                    <div class="col-2">
-                        Status <span class="bold">{{this.dataValues.statusId}}</span>
+                    <div class="col-2 status">
+                        Status: <span class="bold">{{this.status}}</span>
                     </div>
                 </div>
             </div>
 
-            <div id="collapse-{{this.dataValues.id}}" class="collapse">
+            <div id="collapse-{{this.id}}" class="collapse">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
@@ -28,8 +28,8 @@
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Customer:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Sizing example input"
-                                    value="{{this.dataValues.Customer.dataValues.name}}"
-                                    style="background-color: white;" aria-describedby="inputGroup-sizing-sm" readonly>
+                                    value="{{this.customerName}}" style="background-color: white;"
+                                    aria-describedby="inputGroup-sizing-sm" readonly>
                             </div>
                             <!-- Contact -->
                             <div class="input-group input-group-sm mb-3">
@@ -37,8 +37,8 @@
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Contact:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Sizing example input"
-                                    value="{{this.dataValues.Customer.dataValues.contact}}"
-                                    style="background-color: white;" aria-describedby="inputGroup-sizing-sm" readonly>
+                                    value="{{this.customerContact}}" style="background-color: white;"
+                                    aria-describedby="inputGroup-sizing-sm" readonly>
                             </div>
                             <!-- Phone -->
                             <div class="input-group input-group-sm mb-3">
@@ -46,8 +46,7 @@
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Phone:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Sizing example input"
-                                    style="background-color: white;"
-                                    value="{{this.dataValues.Customer.dataValues.phone}}"
+                                    style="background-color: white;" value="{{this.customerPhone}}"
                                     aria-describedby="inputGroup-sizing-sm" readonly>
                             </div>
                         </div>
@@ -56,7 +55,7 @@
                             <label for="destinationAddress">Customer Address:</label>
                             <textarea class="form-control" id="destinationAddress" rows="3"
                                 style="resize:none; background-color: white;"
-                                readonly>{{this.dataValues.Customer.dataValues.address}}</textarea>
+                                readonly>{{this.customerAddress}}</textarea>
                         </div>
                         <div class="col-4">
                             <!-- IBT -->
@@ -65,7 +64,7 @@
                                     <span class="input-group-text" id="inputGroup-sizing-sm">IBT:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Sizing example input"
-                                    value="{{this.dataValues.ibt}}" style="background-color: white;"
+                                    value="{{this.ibt}}" style="background-color: white;"
                                     aria-describedby="inputGroup-sizing-sm" readonly>
                             </div>
                             <!-- Proforma -->
@@ -74,7 +73,16 @@
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Proforma:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Sizing example input"
-                                    value="{{this.dataValues.proforma}}" style="background-color: white;"
+                                    value="{{this.proforma}}" style="background-color: white;"
+                                    aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                            <!-- Branch -->
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Branch:</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    value="{{this.requireBranch}}" style="background-color: white;"
                                     aria-describedby="inputGroup-sizing-sm" readonly>
                             </div>
                         </div>
@@ -82,39 +90,78 @@
                     <div class="row">
                         <div class="col-6 notes-section">
                             <!-- Notes -->
-                            <label for="notes">Notes:</label>
-                            <textarea class="form-control notes" id="notes" rows="6" data-id="{{this.dataValues.id}}"
-                                style="resize:none; background-color: white;" data-value="Created by: {{this.dataValues.User.dataValues.firstname}} {{this.dataValues.User.dataValues.lastname}}&#13;&#10;{{this.dataValues.notes}}"
-                                readonly>{{this.dataValues.notes}}</textarea>
+                            <label for="notes-list">Notes:</label>
+                            <div id="notes-list-{{this.id}}" class="notes-list">
+                                <ul>
+                                    <li><span class="bold">Requested by: </span>{{this.reqBy}}<br /><span
+                                            class="bold">From branch: </span>{{this.requestBranch}}</li>
+                                    {{#each this.notes}}
+                                    <li><span class="bold">{{this.user}}: </span>{{this.note}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
                             <div class="input-group">
-                                <input class="form-control" id="add-note-{{this.dataValues.id}}"
-                                    style="resize:none;"></input>
+                                <input class="form-control notes-input" id="add-note-{{this.id}}"
+                                    data-target="{{this.id}}" style="resize:none;"></input>
                                 <span>
-                                    <button class="btn btn-primary">Submit</button>
+                                    <button class="btn btn-primary submit-note-btn"
+                                        data-target="{{this.id}}">Submit</button>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-4 parts-section">
-                            <!-- Parts -->
-                            <label for="parts">Parts:</label>
-                            <textarea class="form-control" id="parts" rows="8"
-                                style="resize:none; background-color: white;"
-                                readonly>{{this.dataValues.parts}}</textarea>
-                        </div>
-                        <div class="col-2 status-section">
-                            <!-- Status -->
-                            Status:
-                            <ul>
-                                <li><button class="btn btn-danger">Issue</button></li>
-                                <li><button class="btn btn-light">Placeholder</button></li>
-                                <li><button class="btn btn-light">Placeholder</button></li>
-                                <li><button class="btn btn-success">Complete</button></li>
-                            </ul>
+                        <div class="col-6">
+                            <div class="row freight-section">
+                                {{!-- <div class="col-4">
+                                    <button class="btn btn-light refresh-notes-btn">Refresh Notes</button>
+                                </div> --}}
+                                <div class="col-12">
+                                    <!-- Freight cost allocation -->
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Freight cost
+                                                allocation:</span>
+                                        </div>
+                                        <input type="text" class="form-control" aria-label="Sizing example input"
+                                            value="{{this.freightCost}}" style="background-color: white;"
+                                            aria-describedby="inputGroup-sizing-sm" readonly>
+                                    </div>
+                                    <!-- Freight acc number -->
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Freight acc
+                                                number:</span>
+                                        </div>
+                                        <input type="text" class="form-control" aria-label="Sizing example input"
+                                            value="{{this.freightAcc}}" style="background-color: white;"
+                                            aria-describedby="inputGroup-sizing-sm" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8 parts-section">
+                                    <!-- Parts -->
+                                    <label for="parts">Parts:</label>
+                                    <textarea class="form-control" id="parts" rows="8"
+                                        style="resize:none; background-color: white;" readonly>{{this.parts}}</textarea>
+                                </div>
+                                <div class="col-4 status-section">
+                                    <!-- Status -->
+                                    Status:
+                                    <ul>
+                                        <li><button class="btn btn-danger">Issue</button></li>
+                                        <li><button class="btn btn-light">Placeholder</button></li>
+                                        <li><button class="btn btn-light">Placeholder</button></li>
+                                        <li><button class="btn btn-success">Complete</button></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <script type='text/javascript'>
+        originNotes.push({ id: '{{{this.id}}}', note: '{{{this.rawNotes}}}' });
+    </script>
 </div>
