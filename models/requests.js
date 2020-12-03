@@ -73,11 +73,6 @@ module.exports = function (sequelize, Sequelize) {
   });
 
   Request.associate = function (models) {
-    Request.belongsTo(models.Customer, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
     Request.belongsTo(models.Freightmethod, {
       foreignKey: {
         allowNull: false

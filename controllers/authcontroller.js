@@ -73,7 +73,7 @@ exports.dashboard = function (request, result) {
             status: row.Status.status,
             reqBy: `${row.User.firstname} ${row.User.lastname}`
         }));
-        result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}` });
+        result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
     });
 
 }
