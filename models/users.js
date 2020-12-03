@@ -26,6 +26,7 @@ module.exports = function(sequelize, Sequelize) {
  
         email: {
             type: Sequelize.STRING,
+            unique: true,
             validate: {
                 isEmail: true
             }
@@ -43,6 +44,11 @@ module.exports = function(sequelize, Sequelize) {
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'inactive'
+        },
+ 
+        role: {
+            type: Sequelize.ENUM('admin', 'warehouse', 'parts'),
+            defaultValue: 'parts'
         }
  
     });

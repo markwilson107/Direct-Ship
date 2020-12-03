@@ -52,7 +52,6 @@ exports.dashboard = function (request, result) {
                 }
             }
         }
-        console.log()
         const requestData = data.map(row => ({
             id: row.id,
             requestBranch: row.requestingBranch,
@@ -80,10 +79,22 @@ exports.dashboard = function (request, result) {
 }
 
 exports.users = function (request, result) {
-    result.render('users', { layout: 'users' });
+    result.render('users', {layout: 'users', admin: checkAdmin(request.user.role)});
+}
+
+function checkAdmin(role){
+    let adminCheck = false;
+    if (role == "admin"){
+        adminCheck = true;
+    }
+    return adminCheck;
 }
 
 exports.newrequest = function (request, result) {
-    console.log("Here 1")
-    result.render('newrequest', { layout: 'newrequest' });
+
+    db.Freightmethod.findAll().then(function(data) {
+        result.render('newrequest', {layout: 'newrequest', request: data, admin: checkAdmin(request.user.role)});
+    });
+    // result.render('newrequest', {layout: 'newrequest'});
+
 }

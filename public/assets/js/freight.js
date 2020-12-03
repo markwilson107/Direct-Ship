@@ -1,33 +1,49 @@
 $(document).ready(function() {
-    
-    getFreightMethods();
 
-    function getFreightMethods() {
-        
-      $.get("/api/users", function(data) {
 
-        for (var i = 0; i < data.length; i++) {
+});
 
-          newTr = $("<tr>");
-          
-          newName = $("<td>");
-          newName.text(data[i].firstname + " " + data[i].lastname);
 
-          newEmail = $("<td>");
-          newEmail.text(data[i].email);
+$(function() {
+  $(".create-form").on("submit", function(event) {
 
-          newStatus = $("<td>");
-          newStatus.text(data[i].status);
+    // Make sure to preventDefault on a submit event.
+   event.preventDefault();
 
-          newLogin = $("<td>");
-          newLogin.text(data[i].last_login);
+   var newRequest = {
+    requestingBranch: $("#requestingBranch option:selected" ).attr("value"),
+    requiringBranch: $("#requiringBranch option:selected" ).attr("value"),
+    ibt: $("#ibt").val(),
+    proforma: $("#proforma").val(),
+    branchInvoice: $("#branchInvoice").val(),
+    parts: $("#parts").val(),
+    freightCostAllocation: $('input[name="radioFreight"]:checked').val(),
+    customerName: $("#customerName").val(),
+    customerContact: $("#customerContact").val(),
+    customerPhone: $("#customerPhone").val(),
+    customerAddress: $("#customerAddress").val(),
+    CustomerId: "1",
+    notes: $("#notes").val(),
+    FreightmethodId: $("#freightMethod option:selected" ).attr("value"),
+    freightAccount: $("#freightAccount").val(),
+    StatusId: "1",
+    UserId: "1"
 
-          newTr.append(newName, newEmail, newStatus, newLogin);
-          $("#usersTable").append(newTr);
-        }
-        
-      });
+   };
+   console.log(newRequest);
+   console.log("===============================================");
+
+  // Send the POST request.
+  $.ajax("/api/newrequest", {
+    type: "POST",
+    data: newRequest
+  }).then(
+    function() {
+      console.log("created new request");
+      // Reload the page to get the updated list
+      // location.reload();
     }
-  
+  );
   });
-  
+});
+

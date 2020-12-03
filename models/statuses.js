@@ -13,7 +13,8 @@ module.exports = function(sequelize, Sequelize) {
  
         status: {
             type: Sequelize.STRING,
-            notEmpty: true
+            notEmpty: true,
+            unique: true
         }
  
     });
