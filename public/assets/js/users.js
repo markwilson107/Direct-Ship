@@ -7,17 +7,67 @@ $(document).ready(function () {
   let filterRoleBy = "all";
   let filterStatusBy = "all";
 
-  getUsers();
+  let startI = 0;
+  let totalDisplay = 5;
+  let displayCount = 0;
+  let totalCount = 0;
 
-  function getUsers() {
+  getUsers(true);
+
+  function createPagination(total) {
+
+    let totalPages = Math.ceil(total / totalDisplay);
+
+    $(".pagination").empty();
+
+    for (var i = 0; i < totalPages; i++) {
+
+      let newLi = $("<li>");
+      newLi.addClass("page-item");
+
+      if (startI == i){
+        newLi.addClass("active");
+      }
+
+      let newA = $("<a>");
+      newA.addClass("page-link");
+      newA.text(i+1);
+      newA.attr("href","#Paginate");
+      newA.data("start",i*totalDisplay)
+
+      newLi.append(newA);
+
+      $(".pagination").append(newLi);
+
+    }
+  }
+
+  function getUsers(updatePagination) {
 
     $.get("/api/users", function (data) {
-      
+
       $("#usersTable").empty();
 
-      for (var i = 0; i < data.length; i++) {
+      displayCount = 0;
+      totalCount = 0;
 
-        if (checkSelection(data[i].role,data[i].status)){
+      if (updatePagination) {
+        for (var c = startI; c < data.length; c++) {
+
+          if (checkSelection(data[c].role, data[c].status)) {
+            totalCount++;
+          }
+        }
+
+        createPagination(data.length);
+      }
+
+      for (var i = startI; i < data.length; i++) {
+
+        if ((checkSelection(data[i].role, data[i].status)) && (displayCount < totalDisplay)) {
+
+          displayCount++;
+
           newTr = $("<tr>");
 
           newName = $("<td>");
@@ -128,16 +178,23 @@ $(document).ready(function () {
     });
   }
 
+  $(document.body).on('click', ".page-link", function (e) {
+    console.log(`Clicked: ${$(this).data("start")}`);
+    startI = $(this).data("start");
+    getUsers(true);
+  });
+
+
   $(document.body).on('change', "#filterRole", function (e) {
     console.log(`Only show role of: ${$(this).val()}`);
     filterRoleBy = $(this).val();
-    getUsers();
+    getUsers(true);
   });
 
   $(document.body).on('change', "#filterStatus", function (e) {
     console.log(`Only show status of: ${$(this).val()}`);
     filterStatusBy = $(this).val();
-    getUsers();
+    getUsers(true);
   });
 
   $(document.body).on('change', ".status", function (e) {
@@ -177,15 +234,15 @@ $(document).ready(function () {
       return true;
     }
     else if ((whichRole == filterRoleBy) && (filterStatusBy == "all")) {
-        return true;
+      return true;
     }
     else if ((filterRoleBy == "all") && (whichStatus == filterStatusBy)) {
-        return true;
+      return true;
     }
     else if ((whichRole == filterRoleBy) && (whichStatus == filterStatusBy)) {
-        return true;
+      return true;
     }
-  
+
     return false;
   }
 });
