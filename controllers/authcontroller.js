@@ -33,8 +33,10 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
+    console.log(request);
     db.Request.findAll({
-        include: [db.Freightmethod, db.User, db.Status]
+        include: [db.Freightmethod, db.User, db.Status],
+        order: [['StatusId', 'ASC']],
     }).then(function (data) {
         // Check if string is empty and return accordingly (for both object and string)
         function isEmpty(returnObj, string) {
@@ -61,15 +63,15 @@ exports.dashboard = function (request, result) {
             branchInvoice: row.branchInvoice,
             parts: row.parts,
             freightCost: row.freightCostAllocation,
-            notes: isEmpty(true ,row.notes.trim()),
-            rawNotes: isEmpty(false ,row.notes.trim()),
+            notes: isEmpty(true ,row.notes),
+            rawNotes: isEmpty(false ,row.notes),
             reqOn: moment(row.createdAt).format("MMM Do YYYY"),
             customerName: row.customerName,
             customerContact: row.customerContact,
             customerPhone: row.customerPhone,
             customerAddress: row.customerAddress,
             freightMethod: row.Freightmethod.freightMethod,
-            freightAcc: row.freightAcc,
+            freightAcc: row.freightAccount,
             status: row.Status.status,
             reqBy: `${row.User.firstname} ${row.User.lastname}`
         }));
@@ -93,7 +95,7 @@ function checkAdmin(role){
 exports.newrequest = function (request, result) {
 
     db.Freightmethod.findAll().then(function(data) {
-        result.render('newrequest', {layout: 'newrequest', request: data, admin: checkAdmin(request.user.role)});
+        result.render('newrequest', {layout: 'newrequest', request: data, admin: checkAdmin(request.user.role), currentUser: `${request.user.firstname} ${request.user.lastname}`, currentUserId: `${request.user.id}`});
     });
     // result.render('newrequest', {layout: 'newrequest'});
 

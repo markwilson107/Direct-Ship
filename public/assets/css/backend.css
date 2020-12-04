@@ -146,4 +146,6 @@ body {
 
 #destinationAddress {
     height: 93px;
+    white-space: pre-line;
+    background-color: white;
 }
