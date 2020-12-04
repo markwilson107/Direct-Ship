@@ -75,28 +75,30 @@ exports.dashboard = function (request, result) {
             status: row.Status.status,
             reqBy: `${row.User.firstname} ${row.User.lastname}`
         }));
-        result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}` });
+        result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
     });
 
 }
 
+// Access users table
 exports.users = function (request, result) {
-    result.render('users', {layout: 'users', admin: checkAdmin(request.user.role)});
+    result.render('users', { layout: 'users', admin: checkAdmin(request.user.role) });
 }
 
-function checkAdmin(role){
-    let adminCheck = false;
-    if (role == "admin"){
-        adminCheck = true;
-    }
-    return adminCheck;
-}
-
+// Access new request page
 exports.newrequest = function (request, result) {
 
+    // Send current logged in user id to new request form
     db.Freightmethod.findAll().then(function(data) {
         result.render('newrequest', {layout: 'newrequest', request: data, admin: checkAdmin(request.user.role), currentUser: `${request.user.firstname} ${request.user.lastname}`, currentUserId: `${request.user.id}`});
     });
-    // result.render('newrequest', {layout: 'newrequest'});
+}
 
+// Check if user is an administrator
+function checkAdmin(role) {
+    let adminCheck = false;
+    if (role == "admin") {
+        adminCheck = true;
+    }
+    return adminCheck;
 }

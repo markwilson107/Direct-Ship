@@ -6,9 +6,7 @@ var db = require("../models");
 // CONSTANT DECLARATIONS FOR SEEDERS
 const roles = ["admin", "parts", "warehouse"];
 const status = ["active", "inactive"];
-const branch = ["Albany", "Bunbury", "Forrestfield", "Geraldton", "Guilford", "Port Hedland", "Spearwood"];
 let userIds = [];
-let customerIds = [];
 
 // RANDOM INTEGER FUNCTION
 function getRandomInt(max) {
@@ -31,6 +29,18 @@ let newAdmin = {
 db.User.create(newAdmin).then(function (newAdmin, created) {
     console.log(`${newAdmin.id} -> Admin ${newAdmin.email} successfully created.`)
     userIds.push(newAdmin.id);
+
+    // IF SEEDERS DONE, CALL NEXT FUNCTION
+    createUsers();
+}).catch(function (error) {
+    console.log("Error: couldn't add new admin!" + error);
+
+    // Even if the admin can't be created, still create the users.
+    createUsers();
+});
+
+// CREATE USERS
+const createUsers = () => {
 
     // CREATE NEW USERS
     for (var i = 0; i < 10; i++) {
@@ -58,9 +68,7 @@ db.User.create(newAdmin).then(function (newAdmin, created) {
         });
 
     }
-}).catch(function (error) {
-    console.log("Error: couldn't add new admin!" + error);
-});
+}
 
 // CREATE STATUS
 const createStatus = () => {
@@ -74,6 +82,9 @@ const createStatus = () => {
 
     }).catch(function (error) {
         console.log("Error: couldn't add status!");
+
+        // Even if the status can't be created, still create the freight.
+        createFreight();
     });
 }
 
@@ -84,53 +95,40 @@ const createFreight = () => {
         console.log(` -> Added freight methods.`)
 
         // IF SEEDERS DONE, CALL NEXT FUNCTION
-        createCustomers();
+        createRequests();
 
     }).catch(function (error) {
         console.log("Error: couldn't add freight methods!");
+
+        // Even if the freight can't be created, still create the requests.
+        createRequests();
     });
-}
-
-// CREATE CUSTOMERS
-const createCustomers = () => {
-    for (var i = 0; i < 4; i++) {
-
-        let newCustomer = {
-            name: faker.company.companyName(),
-            address: faker.address.streetAddress(),
-            contact: faker.name.firstName() + " " + faker.name.lastName(),
-            phone: faker.phone.phoneNumber()
-        }
-
-        db.Customer.create(newCustomer).then(function (newCustomer, created) {
-            console.log(`${i} -> Customer ${newCustomer.name} successfully created.`)
-            customerIds.push(newCustomer.id);
-
-             // IF SEEDERS DONE, CALL NEXT FUNCTION
-            if (customerIds.length >= 4) {
-                createRequests();
-            }
-
-        }).catch(function (error) {
-            console.log("Error: couldn't add customer!");
-        });
-    }
 }
 
 // CREATE CUSTOMER REQUESTS
 const createRequests = () => {
     for (var i = 0; i < 5; i++) {
 
+        let newNote = [{
+            "user": faker.name.firstName() + " " + faker.name.lastName(),
+            "note": faker.commerce.productDescription()
+        }]
+
         let newRequest = {
             requestingBranch: getRandomInt(7),
             requiringBranch: getRandomInt(7),
+            customerName: faker.company.companyName(),
+            customerContact: faker.name.firstName() + " " + faker.name.lastName(),
+            customerPhone: faker.phone.phoneNumber(),
+            customerAddress: faker.address.streetAddress(),
             ibt: faker.finance.routingNumber(),
-            proforma: getRandomInt(2),
-            branchInvoice: getRandomInt(2),
-            parts: getRandomInt(2),
+            proforma: faker.finance.account(),
+            branchInvoice: faker.finance.account(),
+            parts: faker.commerce.productName(),
             freightCostAllocation: faker.commerce.price(),
-            notes: "",
-            CustomerId: customerIds[getRandomInt(customerIds.length)],
+            freightAccount: faker.finance.routingNumber(),
+            notes: JSON.stringify(newNote), 
+            connote: faker.finance.routingNumber(),
             FreightmethodId: getRandomInt(2) + 1,
             UserId: userIds[getRandomInt(userIds.length)],
             StatusId: getRandomInt(2) + 1

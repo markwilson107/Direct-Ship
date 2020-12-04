@@ -1,10 +1,14 @@
+// DEPENDENCIES
 var db = require("../models");
 
+
+// MODULE EXPORTS
 module.exports = function (app) {
-  // POST route for saving a new post
+
+  // POST route for saving a new request
   app.post("/api/newrequest", function (req, res) {
     db.Request.create(req.body).then(function (dbPostRequest) {
-      console.log(dbPostRequest)
+      console.log(dbPostRequest);
       res.json(dbPostRequest);
     });
   });
