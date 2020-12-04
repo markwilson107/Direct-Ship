@@ -33,8 +33,10 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
+    console.log(request);
     db.Request.findAll({
-        include: [db.Freightmethod, db.User, db.Status]
+        include: [db.Freightmethod, db.User, db.Status],
+        order: [['StatusId', 'ASC']],
     }).then(function (data) {
         // Check if string is empty and return accordingly (for both object and string)
         function isEmpty(returnObj, string) {
@@ -69,7 +71,7 @@ exports.dashboard = function (request, result) {
             customerPhone: row.customerPhone,
             customerAddress: row.customerAddress,
             freightMethod: row.Freightmethod.freightMethod,
-            freightAcc: row.freightAcc,
+            freightAcc: row.freightAccount,
             status: row.Status.status,
             reqBy: `${row.User.firstname} ${row.User.lastname}`
         }));
@@ -87,10 +89,8 @@ exports.users = function (request, result) {
 exports.newrequest = function (request, result) {
 
     // Send current logged in user id to new request form
-    let currentUsedId = request.user.id;
-
-    db.Freightmethod.findAll().then(function (data) {
-        result.render('newrequest', { layout: 'newrequest', request: data, admin: checkAdmin(request.user.role), userId: currentUsedId });
+    db.Freightmethod.findAll().then(function(data) {
+        result.render('newrequest', {layout: 'newrequest', request: data, admin: checkAdmin(request.user.role), currentUser: `${request.user.firstname} ${request.user.lastname}`, currentUserId: `${request.user.id}`});
     });
 }
 

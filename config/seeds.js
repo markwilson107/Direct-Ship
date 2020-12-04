@@ -73,7 +73,7 @@ const createUsers = () => {
 // CREATE STATUS
 const createStatus = () => {
 
-    let newStatus = [{ status: "New" }, { status: "Complete" }, { status: "Archived" }]
+    let newStatus = [{ status: "Alert" } ,{ status: "New" }, { status: "Complete" }, { status: "Archived" }]
     db.Status.bulkCreate(newStatus).then(function (newStatus, created) {
         console.log(` -> Added statuses.`)
 

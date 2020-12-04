@@ -1,3 +1,5 @@
+
+
 function updateNotes(thisElement) {
     // Gets the current request id
     console.log("pressed")
@@ -45,12 +47,18 @@ $('.notes-input').on('keyup', function (e) {
 });
 
 // Requests
-$("#request-header").each(function (index) {
+$(".request-block").each(function (index) {
     if ($(this).data("status") === "Alert") {
-        $(this).css("backgroundColor", "rgba(255, 0, 0, 0.2)");
+        $(this).find(".request-header").css("backgroundColor", "rgba(255, 0, 0, 0.2)");
+        $(this).find(".alert-btn").css("display", "none");
+        $(this).find(".resolved-btn").css("display", "block");
     } else if ($(this).data("status") === "Complete") {
-        $(this).css("backgroundColor", "rgba(0, 0, 0, 0.144)");
-        $(this).css("color", "rgba(0, 0, 0, 0.5)");
+        $(this).find(".request-header").css("backgroundColor", "rgba(0, 0, 0, 0.144)");
+        $(this).find(".request-header").css("color", "rgba(0, 0, 0, 0.5)");
+        $(this).find(".complete-btn").css("display", "none");
+        $(this).find(".edit-btn").css("display", "none");
+        $(this).find(".incomplete-btn").css("display", "block");
+        $(this).find(".archive-btn").css("display", "block");
     }
 })
 
