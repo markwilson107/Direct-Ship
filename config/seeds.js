@@ -109,10 +109,10 @@ const createFreight = () => {
 const createRequests = () => {
     for (var i = 0; i < 5; i++) {
 
-        let newNote = {
+        let newNote = [{
             "user": faker.name.firstName() + " " + faker.name.lastName(),
             "note": faker.commerce.productDescription()
-        }
+        }]
 
         let newRequest = {
             requestingBranch: getRandomInt(7),
@@ -126,6 +126,7 @@ const createRequests = () => {
             branchInvoice: faker.finance.account(),
             parts: faker.commerce.productName(),
             freightCostAllocation: faker.commerce.price(),
+            freightAccount: faker.finance.routingNumber(),
             notes: JSON.stringify(newNote), 
             connote: faker.finance.routingNumber(),
             FreightmethodId: getRandomInt(2) + 1,
