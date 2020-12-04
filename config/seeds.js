@@ -30,6 +30,18 @@ db.User.create(newAdmin).then(function (newAdmin, created) {
     console.log(`${newAdmin.id} -> Admin ${newAdmin.email} successfully created.`)
     userIds.push(newAdmin.id);
 
+    // IF SEEDERS DONE, CALL NEXT FUNCTION
+    createUsers();
+}).catch(function (error) {
+    console.log("Error: couldn't add new admin!" + error);
+
+    // Even if the admin can't be created, still create the users.
+    createUsers();
+});
+
+// CREATE USERS
+const createUsers = () => {
+
     // CREATE NEW USERS
     for (var i = 0; i < 10; i++) {
 
@@ -56,9 +68,7 @@ db.User.create(newAdmin).then(function (newAdmin, created) {
         });
 
     }
-}).catch(function (error) {
-    console.log("Error: couldn't add new admin!" + error);
-});
+}
 
 // CREATE STATUS
 const createStatus = () => {
@@ -72,6 +82,9 @@ const createStatus = () => {
 
     }).catch(function (error) {
         console.log("Error: couldn't add status!");
+
+        // Even if the status can't be created, still create the freight.
+        createFreight();
     });
 }
 
@@ -86,12 +99,20 @@ const createFreight = () => {
 
     }).catch(function (error) {
         console.log("Error: couldn't add freight methods!");
+
+        // Even if the freight can't be created, still create the requests.
+        createRequests();
     });
 }
 
 // CREATE CUSTOMER REQUESTS
 const createRequests = () => {
     for (var i = 0; i < 5; i++) {
+
+        let newNote = {
+            "user": faker.name.firstName() + " " + faker.name.lastName(),
+            "note": faker.commerce.productDescription()
+        }
 
         let newRequest = {
             requestingBranch: getRandomInt(7),
@@ -105,7 +126,8 @@ const createRequests = () => {
             branchInvoice: faker.finance.account(),
             parts: faker.commerce.productName(),
             freightCostAllocation: faker.commerce.price(),
-            notes: `[ {${faker.commerce.productDescription()}} ]`,
+            notes: JSON.stringify(newNote), 
+            connote: faker.finance.routingNumber(),
             FreightmethodId: getRandomInt(2) + 1,
             UserId: userIds[getRandomInt(userIds.length)],
             StatusId: getRandomInt(2) + 1
