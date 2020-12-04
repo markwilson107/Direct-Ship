@@ -8,7 +8,7 @@ console.log(currentUserId + " " + currentUser);
     <div class="row">
         <div class="col-12 text-center mt-3">
             <h1>New Request</h1>
-            Current used id: {{userId}}
+            Current user id: {{currentUserId}}
         </div>
 
     </div>
@@ -48,14 +48,14 @@ console.log(currentUserId + " " + currentUser);
                     </div>
 
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <!-- Customer -->
                             <div class="input-group input-group-sm mb-3" style="margin-top: 16px;">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Customer:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm"
-                                    id="customerName">
+                                    id="customerName" required>
                             </div>
                             <!-- Contact -->
                             <div class="input-group input-group-sm mb-3">
@@ -63,7 +63,7 @@ console.log(currentUserId + " " + currentUser);
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Contact:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm"
-                                    id="customerContact">
+                                    id="customerContact" required>
                             </div>
                             <!-- Phone -->
                             <div class="input-group input-group-sm mb-3">
@@ -71,46 +71,46 @@ console.log(currentUserId + " " + currentUser);
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Phone:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm"
-                                    id="customerPhone">
+                                    id="customerPhone" required>
                             </div>
 
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <!-- Customer address -->
                             <label for="destinationAddress">Customer Address:</label>
                             <textarea class="form-control" id="customerAddress" rows="4"
-                                style="resize:none; background-color: white;"></textarea>
+                                style="resize:none; background-color: white;" required></textarea>
                         </div>
 
 
 
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <!-- Customer -->
                             <div class="input-group input-group-sm mb-3" style="margin-top: 16px;">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">IBT #</span>
                                 </div>
                                 <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm"
-                                    id="ibt">
+                                    id="ibt" required>
                             </div>
                             <div class="input-group input-group-sm mb-3" style="margin-top: 16px;">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Branch Inv #</span>
                                 </div>
                                 <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm"
-                                    id="branchInvoice">
+                                    id="branchInvoice" pattern="[0-9]+" title="-- must only be numbers." required>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <!-- Customer -->
                             <div class="input-group input-group-sm mb-3" style="margin-top: 16px;">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Proforma #</span>
                                 </div>
                                 <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm"
-                                    id="proforma">
+                                    id="proforma" required>
                             </div>
                             {{!-- <div class="input-group input-group-sm mb-3" style="margin-top: 16px;">
                                 <div class="input-group-prepend">
@@ -155,7 +155,7 @@ console.log(currentUserId + " " + currentUser);
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="input-group input-group-sm mb-3" style="margin-top: 16px;">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Freight Account #</span>
@@ -166,12 +166,12 @@ console.log(currentUserId + " " + currentUser);
                         </div>
                     </div>
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6 pb-2">
                             <label for="notes">Parts:</label>
                             <textarea class="form-control" id="parts" rows="4"
                                 style="resize:none; background-color: white;"></textarea>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <!-- Notes -->
                             <label for="notes">Notes:</label>
                             <textarea class="form-control" id="notes" rows="4"
