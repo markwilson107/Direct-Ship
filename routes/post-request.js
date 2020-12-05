@@ -14,23 +14,19 @@ module.exports = function (app) {
   });
 
   // UPDATE route for request
-  app.put("/api/updaterequest", function (req, res) {
-      db.Request.update({ notes: req.body.note },
-        {
-          where: {
-            id: req.body.id
-          }
-        })
-        .then(function (reqUpdate) {
-          res.json(reqUpdate);
-        });
+  app.put("/api/update_request/:id", function (req, res) {
+    db.Request.update(req.body,
+      {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(function (reqUpdate) {
+        res.json(reqUpdate);
+      });
   });
 
-  app.post("/api/update_user", function(req, res) {
-    // console.log(req.body)
-    // db.User.update(req.body).then(function(dbPostRequest) {
-    //   res.json(dbPostRequest);
-    // });
+  app.post("/api/update_user", function (req, res) {
 
     db.User.update(
       req.body,
@@ -42,5 +38,5 @@ module.exports = function (app) {
         res.json(dbPost);
       });
   });
-  
+
 }
