@@ -27,8 +27,8 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.get("/api/countrequests", isLoggedIn, function(request,res){
-        
+    app.get("/api/countrequests", isLoggedIn, function (request, res) {
+
         db.Request.findAndCountAll({}).then(function (results) {
             res.json(results.count);
         })
