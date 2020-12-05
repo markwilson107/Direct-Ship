@@ -9,8 +9,8 @@ function updateNotes(thisElement) {
     function sendPut(newNote) {
         $.ajax({
             method: "PUT",
-            url: "/api/updaterequest",
-            data: { "id": `${noteId}`, "note": newNote },
+            url: "/api/update_request/" + noteId,
+            data: { "notes": `${newNote}` },
             success: () => {
                 // Appends new note to notes list
                 $(`#notes-list-${noteId} ul`).append(`<li><span class="bold">${currentUser}:</span> ${$newNote}</li>`);
@@ -32,6 +32,17 @@ function updateNotes(thisElement) {
         // Sends stringified notes object (original notes object + new note object)
         sendPut(JSON.stringify(originNotesObj));
     }
+}
+
+function updateStatus(id,status) {
+    $.ajax({
+        method: "PUT",
+        url: "/api/update_request/" + id,
+        data: { "StatusId": `${status}` },
+        success: () => {
+            location.reload();
+        }
+    });
 }
 
 // Checks if notes submit has been pressed
@@ -56,11 +67,18 @@ $(".request-block").each(function (index) {
         $(this).find(".request-header").css("backgroundColor", "rgba(0, 0, 0, 0.144)");
         $(this).find(".request-header").css("color", "rgba(0, 0, 0, 0.5)");
         $(this).find(".complete-btn").css("display", "none");
+        $(this).find(".alert-btn").css("display", "none");
         $(this).find(".edit-btn").css("display", "none");
         $(this).find(".incomplete-btn").css("display", "block");
         $(this).find(".archive-btn").css("display", "block");
     }
-})
+});
+
+// Status buttons
+$('.alert-btn, .resolved-btn, .complete-btn, .incomplete-btn, .archive-btn').on('click', function () {  
+    updateStatus($(this).data("target"),$(this).data("id"));
+});
+
 
 // Check if request has been clicked
 $('.card-header').on('click', function () {
