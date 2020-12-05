@@ -14,11 +14,11 @@ module.exports = function (app) {
   });
 
   // UPDATE route for request
-  app.put("/api/updaterequest", function (req, res) {
-      db.Request.update({ notes: req.body.note },
+  app.put("/api/update_request/:id", function (req, res) {
+      db.Request.update(req.body,
         {
           where: {
-            id: req.body.id
+            id: req.params.id
           }
         })
         .then(function (reqUpdate) {
@@ -27,10 +27,6 @@ module.exports = function (app) {
   });
 
   app.post("/api/update_user", function(req, res) {
-    // console.log(req.body)
-    // db.User.update(req.body).then(function(dbPostRequest) {
-    //   res.json(dbPostRequest);
-    // });
 
     db.User.update(
       req.body,

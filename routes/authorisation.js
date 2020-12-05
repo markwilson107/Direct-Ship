@@ -14,6 +14,9 @@ module.exports = function (app, passport) {
     // PRIMARY DASHBOARD
     app.get('/dashboard', isLoggedIn, authController.dashboard);
 
+    // ARCHIVED POSTS
+    app.get('/archive', isLoggedIn, authController.archivedRequests);
+
     // USERS DASHBOARD
     app.get("/api/users", isAdmin, function (request, res) {
 
