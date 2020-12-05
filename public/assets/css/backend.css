@@ -50,6 +50,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
+    background-position-x: center;
     margin-bottom: 20px;
 }
 
