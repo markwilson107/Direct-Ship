@@ -69,4 +69,50 @@ $(document).ready(function () {
         $($collapseTarget).collapse("toggle");
     });
 
+    // DEFAULT VALUES
+    let currentRequestCount = 0;
+    let checkRequests;
+
+    // CHECK FIRST TIME
+    $.ajax({
+        method: "GET",
+        url: "/api/countrequests",
+        success: (results) => {
+            // SET INITIAL COUNT
+            tempRequestCount = parseInt(results);
+            currentRequestCount = tempRequestCount;
+            // SET TIMER
+            checkRequests = setInterval(checkNewRequests, 60000);
+        }
+    });
+
+    // CHECK FOR NEW REQUESTS
+    function checkNewRequests() {
+        $.ajax({
+            method: "GET",
+            url: "/api/countrequests",
+            success: (results) => {
+                tempRequestCount = parseInt(results);
+
+                if (tempRequestCount > currentRequestCount) {
+
+                    if ($('.newrequestsalert~').contents().length == 0) {
+
+                        newButton = $("<button>");
+                        newButton.attr("class", "btn btn-success ml-auto mb-3 refresh");
+                        newButton.html('<i class="fa fa-bell"></i> New requests')
+
+                        $('.newrequestsalert').append(newButton);
+                    }
+                }
+                currentRequestCount = tempRequestCount;
+            }
+        });
+    }
+
+    // REFRESH PAGE BUTTON
+    $(document.body).on('click', ".refresh", function (e) {
+        location.reload();
+    });
+
 })

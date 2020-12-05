@@ -33,7 +33,7 @@ exports.logout = function (request, result) {
 
 // Logged in dashboard
 exports.dashboard = function (request, result) {
-    console.log(request);
+    // console.log(request);
     db.Request.findAll({
         include: [db.Freightmethod, db.User, db.Status],
         order: [['StatusId', 'ASC']],
