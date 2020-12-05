@@ -3,6 +3,8 @@ var exports = module.exports = {}
 var db = require("../models");
 var moment = require('moment'); // require
 
+const theBranches = ["Albany","Bunbury","Forrestfield","Geraldton","Guildford","Port Hedland","Spearwood"]
+
 // Signup process
 exports.signup = function (request, result) {
     let message = request.flash('error');
@@ -56,8 +58,8 @@ exports.dashboard = function (request, result) {
         }
         const requestData = data.map(row => ({
             id: row.id,
-            requestBranch: row.requestingBranch,
-            requireBranch: row.requiringBranch,
+            requestBranch: theBranches[row.requestingBranch-1],
+            requireBranch: theBranches[row.requiringBranch-1],
             ibt: row.ibt,
             proforma: row.proforma,
             branchInvoice: row.branchInvoice,
