@@ -8,7 +8,7 @@ console.log(currentUserId + " " + currentUser);
     <div class="row">
         <div class="col-12 text-center mt-3">
             <h1>New Request</h1>
-            Current user id: {{currentUserId}}
+            {{!-- Current user id: {/{currentUserId}/} --}}
         </div>
 
     </div>
@@ -21,8 +21,8 @@ console.log(currentUserId + " " + currentUser);
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="requestingbranch">Requesting Branch</label>
-                            <select class="custom-select" id="requestingBranch">
-                                <option selected>Select</option>
+                            <select class="custom-select" id="requestingBranch" required>
+                                <option value="">Select</option>
                                 <option value="1">Albany</option>
                                 <option value="2">Bunbury</option>
                                 <option value="3">Forrestfield</option>
@@ -34,8 +34,8 @@ console.log(currentUserId + " " + currentUser);
                         </div>
                         <div class="form-group col-md-6">
                             <label for="requiringbranch">Requiring Branch</label>
-                            <select class="custom-select" id="requiringBranch">
-                                <option selected>Select</option>
+                            <select class="custom-select" id="requiringBranch" required>
+                                <option value="">Select</option>
                                 <option value="1">Albany</option>
                                 <option value="2">Bunbury</option>
                                 <option value="3">Forrestfield</option>
@@ -146,8 +146,8 @@ console.log(currentUserId + " " + currentUser);
                         </div>
                         <div class="form-group col-md-6">
                             <label for="freightMethod">Freight Method</label>
-                            <select class="custom-select" id="freightMethod">
-                                <option selected>Select</option>
+                            <select class="custom-select" id="freightMethod" required>
+                                <option value="">Select</option>
                                 {{#each request}}
                                 <option value="{{this.dataValues.id}}">{{this.dataValues.freightMethod}}</option>
                                 {{/each}}
@@ -161,7 +161,7 @@ console.log(currentUserId + " " + currentUser);
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Freight Account #</span>
                                 </div>
                                 <input type="text" class="form-control" aria-describedby="inputGroup-sizing-sm"
-                                    id="freightAccount">
+                                    id="freightAccount" required>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ console.log(currentUserId + " " + currentUser);
                         <div class="col-12 col-md-6 pb-2">
                             <label for="notes">Parts:</label>
                             <textarea class="form-control" id="parts" rows="4"
-                                style="resize:none; background-color: white;"></textarea>
+                                style="resize:none; background-color: white;" required></textarea>
                         </div>
                         <div class="col-12 col-md-6">
                             <!-- Notes -->
