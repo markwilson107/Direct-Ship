@@ -50,12 +50,13 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
+    background-position-x: center;
     margin-bottom: 20px;
 }
 
 body {
     background-color: rgba(0, 0, 0, .03);
-    padding-top: 160px;
+    /* padding-top: 160px; */
 }
 
 .bg-black {

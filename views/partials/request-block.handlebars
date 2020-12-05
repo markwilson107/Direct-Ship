@@ -6,7 +6,7 @@
                     <div class="col-6 col-lg-1">
                         ID: <span class="bold">{{this.id}}</span>
                     </div>
-                    <div class="col-6 col-lg-3 text-md-right text-lg-left">
+                    <div class="col-6 col-lg-3 text-right text-lg-left">
                         Requested on: <span class="req-on bold">{{this.reqOn}}</span>
                     </div>
                     <div class="col-6">
@@ -79,7 +79,7 @@
                             <!-- Branch -->
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Branch:</span>
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">To Branch:</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Sizing example input"
                                     value="{{this.requireBranch}}" style="background-color: white;"
@@ -94,7 +94,7 @@
                             <div id="notes-list-{{this.id}}" class="notes-list">
                                 <ul>
                                     <li><span class="bold">Requested by: </span>{{this.reqBy}}<br /><span
-                                            class="bold">From branch: </span>{{this.requestBranch}}</li>
+                                            class="bold">From Branch: </span>{{this.requestBranch}}</li>
                                     {{#each this.notes}}
                                     <li><span class="bold">{{this.user}}: </span>{{this.note}}</li>
                                     {{/each}}
