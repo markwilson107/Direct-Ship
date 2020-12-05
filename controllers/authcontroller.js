@@ -83,7 +83,18 @@ exports.dashboard = function (request, result) {
         let requestData = mapData(data);
         result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
     });
+}
 
+// Logged in dashboard with id
+exports.dashboard = function (request, result) {
+    db.Request.findAll({
+        include: [db.Freightmethod, db.User, db.Status],
+        where: { statusId: { $not: '4' } },
+        order: [['StatusId', 'ASC']],
+    }).then(function (data) {
+        let requestData = mapData(data);
+        result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+    });
 }
 
 // Access users table

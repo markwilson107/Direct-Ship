@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("#collapse-2").collapse("show");
 
     function updateNotes(thisElement) {
         // Gets the current request id

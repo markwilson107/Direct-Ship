@@ -7,8 +7,12 @@ module.exports = function (app) {
 
   // POST route for saving a new request
   app.post("/api/newrequest", function (req, res) {
-    db.Request.create(req.body).then(function (dbPostRequest) {
+    db.Request.create({
+      ...req.body,
+      UserId: req.user.id
+    }).then(function (dbPostRequest) {
       console.log(dbPostRequest);
+
       res.json(dbPostRequest);
     });
   });

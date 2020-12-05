@@ -25,8 +25,7 @@ $(function () {
       notes: addNotes($("#notes").val()),
       FreightmethodId: $("#freightMethod option:selected").attr("value"),
       freightAccount: $("#freightAccount").val(),
-      StatusId: "2",
-      UserId: currentUserId
+      StatusId: "2"
     };
     console.log(newRequest);
     console.log("===============================================");
