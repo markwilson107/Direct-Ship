@@ -18,7 +18,7 @@ module.exports = function (app, passport) {
     app.get('/archive', isLoggedIn, authController.archivedRequests);
 
     // USERS DASHBOARD
-    app.get("/api/users", function (request, res) {
+    app.get("/api/users", isAdmin, function (request, res) {
 
         console.log("GETTING USERS");
 
@@ -26,6 +26,13 @@ module.exports = function (app, passport) {
             res.json(results);
         });
     });
+
+    app.get("/api/countrequests", isLoggedIn, function(request,res){
+        
+        db.Request.findAndCountAll({}).then(function (results) {
+            res.json(results.count);
+        })
+    })
 
     app.get('/users', isAdmin, authController.users);
 

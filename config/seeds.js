@@ -6,6 +6,7 @@ var db = require("../models");
 // CONSTANT DECLARATIONS FOR SEEDERS
 const roles = ["admin", "parts", "warehouse"];
 const status = ["active", "inactive"];
+const freightcost = ["TCWA", "Customer"];
 let userIds = [];
 
 // RANDOM INTEGER FUNCTION
@@ -125,7 +126,7 @@ const createRequests = () => {
             proforma: faker.finance.account(),
             branchInvoice: faker.finance.account(),
             parts: faker.commerce.productName(),
-            freightCostAllocation: faker.commerce.price(),
+            freightCostAllocation: freightcost[getRandomInt(2)],
             freightAccount: faker.finance.routingNumber(),
             notes: JSON.stringify(newNote), 
             connote: faker.finance.routingNumber(),

@@ -1,13 +1,13 @@
-
+$(document).ready(function () {
 
 function updateNotes(thisElement) {
-    // Gets the current request id
-    console.log("pressed")
-    const noteId = thisElement.data("target");
-    const $newNote = $(`#add-note-${noteId}`).val().trim();
-    // Sends PUT
-    function sendPut(newNote) {
-        $.ajax({
+        // Gets the current request id
+        console.log("pressed")
+        const noteId = thisElement.data("target");
+        const $newNote = $(`#add-note-${noteId}`).val().trim();
+        // Sends PUT
+        function sendPut(newNote) {
+            $.ajax({
             method: "PUT",
             url: "/api/update_request/" + noteId,
             data: { "notes": `${newNote}` },
@@ -34,30 +34,26 @@ function updateNotes(thisElement) {
     }
 }
 
-function updateStatus(id,status) {
-    $.ajax({
-        method: "PUT",
-        url: "/api/update_request/" + id,
-        data: { "StatusId": `${status}` },
-        success: () => {
-            location.reload();
+    // Checks if notes submit has been pressed
+    $('.submit-note-btn').on('click', function () {
+        updateNotes($(this));
+    });
+
+    // Check if notes has been submitted with enter press
+    $('.notes-input').on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            updateNotes($(this));
         }
     });
-}
 
-// Checks if notes submit has been pressed
-$('.submit-note-btn').on('click', function () {
-    updateNotes($(this));
-});
+    // Check if request has been clicked
+    $('.card-header').on('click', function () {
+        let $collapseTarget = $(this).data("target");
+        console.log($collapseTarget)
+        $($collapseTarget).collapse("toggle");
+    });
 
-// Check if notes has been submitted with enter press
-$('.notes-input').on('keyup', function (e) {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-        updateNotes($(this));
-    }
-});
-
-// Requests
+// Requests colour coding and status buttons
 $(".request-block").each(function (index) {
     if ($(this).data("status") === "Alert") {
         $(this).find(".request-header").css("backgroundColor", "rgba(255, 0, 0, 0.2)");
@@ -73,16 +69,65 @@ $(".request-block").each(function (index) {
         $(this).find(".archive-btn").css("display", "block");
     }
 });
+  
+function updateStatus(id,status) {
+    $.ajax({
+        method: "PUT",
+        url: "/api/update_request/" + id,
+        data: { "StatusId": `${status}` },
+        success: () => {
+            location.reload();
+        }
+    });
+}
 
 // Status buttons
 $('.alert-btn, .resolved-btn, .complete-btn, .incomplete-btn, .archive-btn').on('click', function () {  
     updateStatus($(this).data("target"),$(this).data("id"));
 });
 
+// DEFAULT VALUES
+    let currentRequestCount = 0;
+    let checkRequests;
 
-// Check if request has been clicked
-$('.card-header').on('click', function () {
-    let $collapseTarget = $(this).data("target");
-    console.log($collapseTarget)
-    $($collapseTarget).collapse("toggle");
-});
+    // CHECK FIRST TIME
+    $.ajax({
+        method: "GET",
+        url: "/api/countrequests",
+        success: (results) => {
+            // SET INITIAL COUNT
+            tempRequestCount = parseInt(results);
+            currentRequestCount = tempRequestCount;
+            // SET TIMER
+            checkRequests = setInterval(checkNewRequests, 60000);
+        }
+    });
+  
+      // CHECK FOR NEW REQUESTS
+    function checkNewRequests() {
+        $.ajax({
+              method: "GET",
+            url: "/api/countrequests",
+            success: (results) => {
+                tempRequestCount = parseInt(results);
+
+                if (tempRequestCount > currentRequestCount) {
+                      if ($('.newrequestsalert~').contents().length == 0) {
+                        newButton = $("<button>");
+                        newButton.attr("class", "btn btn-success ml-auto mb-3 refresh");
+                        newButton.html('<i class="fa fa-bell"></i> New requests')
+
+                        $('.newrequestsalert').append(newButton);
+                    }
+                }
+                currentRequestCount = tempRequestCount;
+            }
+        });
+    }
+
+    // REFRESH PAGE BUTTON
+    $(document.body).on('click', ".refresh", function (e) {
+        location.reload();
+    });
+
+})
