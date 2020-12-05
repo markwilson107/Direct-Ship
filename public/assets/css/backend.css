@@ -54,6 +54,24 @@
     margin-bottom: 20px;
 }
 
+.newrequestcontainer {
+    display: none;
+    padding-bottom: 0px !important;
+}
+
+.archiveImg {
+    height: 600px;
+    background-image: url("/assets/img/archive.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: center;
+    margin-bottom: 20px;
+}
+
 body {
     background-color: rgba(0, 0, 0, .03);
     /* padding-top: 160px; */

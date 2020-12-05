@@ -2,7 +2,7 @@
     let originNotes = [];
     const currentUser = '{{{currentUser}}}';
 </script>
-<div class="container-fluid dashboardImg">
+<div class="container-fluid archiveImg">
     <div class="row centered">
         <div class="col-12 text-center mt-3">
             <div class="align-middle welcomeTitle">Archived Requests</div>
@@ -14,13 +14,13 @@
     <div class="row">
         <div class="col-12">
             {{#each request}}
-            {{> request-block}}
+            {{> archive-block}}
             {{/each}}
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <a href="/dashboard">Go back to dashboard</a>
+            <a href="/dashboard" class="btn btn-secondary">Go back to dashboard</a>
         </div>
     </div>
 </div>

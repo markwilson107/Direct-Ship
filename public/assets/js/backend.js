@@ -118,6 +118,7 @@ $(document).ready(function () {
                         newButton.html('<i class="fa fa-bell"></i> New requests')
 
                         $('.newrequestsalert').append(newButton);
+                        $('.newrequestcontainer').attr("style","display:block")
                     }
                 }
                 currentRequestCount = tempRequestCount;

@@ -110,7 +110,7 @@ exports.archivedRequests = function (request, result) {
         order: [['StatusId', 'ASC']],
     }).then(function (data) {
         let requestData = mapData(data);
-        result.render('archive', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+        result.render('archive', { layout: 'archive', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
     });
 }
 
