@@ -180,6 +180,8 @@ $(document).ready(function () {
             success: () => {
                 $(editButton[0]).attr("class", "btn btn-light edit-btn");
                 $(editButton[0]).text("Edit")
+
+                updateStatus(updateBlock, 5);
             }
         });       
 
