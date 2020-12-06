@@ -2,19 +2,23 @@ const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
         host: process.env.emailHost,
-        port: emailPort,
+        port: process.env.emailPort,
+        secure: false,
         auth: {
             user: process.env.emailAccount,
             pass: process.env.emailPassword
+        },
+        tls: {
+            rejectUnauthorized: false
         }
     });
 
 const sendMail = (emailAddress, emailSubject, emailText, cb) => {
     var mailOptions = {
-        from: 'youremail@gmail.com',
+        from: 'noreply@tcwa.com',
         to: emailAddress,
         subject: emailSubject,
-        text: emailText
+        html : emailText
     };
 
     transporter.sendMail(mailOptions, function(error, info){
