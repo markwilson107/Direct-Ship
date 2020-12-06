@@ -9,10 +9,10 @@ module.exports = function (app) {
   app.post("/api/newrequest", function (req, res) {
     db.Request.create(req.body).then(function (dbPostRequest) {
       // console.log(dbPostRequest.dataValues);
-      
-      // let currentUser = '{{{currentUser}}}';
-      console.log(currentUser);
-      const emailAddress = "warehouse@tcwa.au"; // fake email address
+      console.log(req.user)
+      let currentUser = '{{{currentUser}}}';
+      // console.log(currentUser);
+      const emailAddress = "wayne.c@tcwa.com.au"; // fake email address
       const emailSubject = "Direct Ship";
       const emailText = `<!DOCTYPE html>
       <html><head>
