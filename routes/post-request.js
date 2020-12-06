@@ -9,16 +9,13 @@ module.exports = function (app) {
   app.post("/api/newrequest", function (req, res) {
     db.Request.create(req.body).then(function (dbPostRequest) {
       // console.log(dbPostRequest.dataValues);
-      console.log(req.user)
-      let currentUser = '{{{currentUser}}}';
-      // console.log(currentUser);
-      const emailAddress = "wayne.c@tcwa.com.au"; // fake email address
+      // const emailAddress = "wayne.c@tcwa.com.au";
+      const emailAddress = "warehouse@tcwa.au"; // fake email address
       const emailSubject = "Direct Ship";
       const emailText = `<!DOCTYPE html>
       <html><head>
       </head><body><div>
       <h2>A new Direct Ship request has been created</h2>
-      <p><strong>Created By:</strong> ${currentUser}</p>
       <p>Access the request by clicking this <a href="http://localhost:8080/${dbPostRequest.dataValues.id}">link</a></p>
       <p><strong>Customer:</strong> ${dbPostRequest.dataValues.customerName}</p>
       </div></body></html>`
