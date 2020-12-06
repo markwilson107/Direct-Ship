@@ -35,7 +35,7 @@ module.exports = function (app) {
       res.json(dbPostRequest);
     });
   });
-
+//
   // UPDATE route for request
   app.put("/api/update_request/:id", function (req, res) {
       db.Request.update(req.body,
