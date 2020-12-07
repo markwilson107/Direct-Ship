@@ -138,37 +138,65 @@ $(document).ready(function () {
         location.reload();
     });
 
+    // DECLARE THE BRANCHES
+    const theBranches = ["Albany", "Bunbury", "Forrestfield", "Geraldton", "Guildford", "Port Hedland", "Spearwood"];
+
     // EDIT DASHBOARD BUTTON
     $(document.body).on('click', ".edit-btn", function (e) {
 
+        // GET THE REQUIRED ELEMENTS
         let editBlock = $(this).data("target");
         let allFields = $(`*[data-edit="${editBlock}"]`);
         let editButton = $(`*[data-update="${editBlock}"]`);
+        let branchText = $(`*[data-branch="${editBlock}"]`);
 
+        // SET EACH FIELD AS EDITABLE
         for (var i = 0; i < allFields.length; i++) {
             allFields[i].removeAttribute("readonly");
         }
 
+        // CHANGE THE EDIT BUTTON TO UPDATE
         $(editButton[0]).attr("class", "btn btn-warning update-btn");
         $(editButton[0]).text("Update")
 
+        // CHANGE THE BRANCH TO A SELECT
+        $(branchText[0]).attr("class", "form-control d-none");
+        $(branchText[1]).attr("class", "custom-select");
+
+        // ASSIGN THE CHOSEN BRANCH TO THE SELECT
+        let chosenBranch = theBranches.indexOf($(branchText[0]).val()) + 1;
+        $(branchText[1]).children('option')[chosenBranch].setAttribute("selected", true)
     });
 
-    const theBranches = ["Albany","Bunbury","Forrestfield","Geraldton","Guildford","Port Hedland","Spearwood"]
-
+    // UPDATE DASHBOARD BUTTON
     $(document.body).on('click', ".update-btn", function (e) {
 
+        // GET THE REQUIRED ELEMENTS
         let updateBlock = $(this).data("target");
         let allFields = $(`*[data-edit="${updateBlock}"]`);
         let editButton = $(`*[data-update="${updateBlock}"]`);
+        let branchText = $(`*[data-branch="${updateBlock}"]`);
+        let statusText = $(`*[data-status="${updateBlock}"]`);
 
+        // SET DEFAULT FOR NEW VALUES
         let newValues = [];
 
+        // CHANGE THE TEXT OF THE BRANCH TO THE NOW SELECTED
+        $(branchText[0]).attr("class", "form-control");
+        $(branchText[1]).attr("class", "custom-select d-none");
+        $(branchText[0]).val(theBranches[$(branchText[1]).val() - 1]);
+
+        // UPDATE STATUS TEXT
+        $(statusText[0]).text("Updated");
+        console.log("statusText[0]: "+statusText[0]);
+
+        // RECORD ALL THE NEW VARIABLES
         for (var i = 0; i < allFields.length; i++) {
             newValues.push($(allFields[i]).val());
             allFields[i].setAttribute("readonly", true);
         }
 
+        // UPDATE 
         $.ajax({
             method: "PUT",
             url: "/api/update_request/" + updateBlock,
@@ -179,19 +207,19 @@ $(document).ready(function () {
                 "customerAddress": `${newValues[3]}`,
                 "ibt": `${newValues[4]}`,
                 "proforma": `${newValues[5]}`,
-                "requiringBranch": `${theBranches.indexOf(newValues[6])+1}`,
+                "requiringBranch": `${theBranches.indexOf(newValues[6]) + 1}`,
                 "freightCostAllocation": `${newValues[7]}`,
                 "freightAccount": `${newValues[8]}`,
-                "parts": `${newValues[9]}`
+                "parts": `${newValues[9]}`,
+                "StatusId": 5
             },
             success: () => {
                 $(editButton[0]).attr("class", "btn btn-light edit-btn");
                 $(editButton[0]).text("Edit")
 
                 updateStatus(updateBlock, 2);
+
             }
-        });       
-
+        });
     });
-
 })
