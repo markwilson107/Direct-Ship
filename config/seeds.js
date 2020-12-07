@@ -60,7 +60,7 @@ const createUsers = () => {
             userIds.push(newUser.id);
 
             // IF SEEDERS DONE, CALL NEXT FUNCTION
-            if (userIds.length == 11) {
+            if (userIds.length >= 10) {
                 createStatus();
             }
 
@@ -116,8 +116,8 @@ const createRequests = () => {
         }]
 
         let newRequest = {
-            requestingBranch: getRandomInt(7),
-            requiringBranch: getRandomInt(7),
+            requestingBranch: getRandomInt(7)+1,
+            requiringBranch: getRandomInt(7)+1,
             customerName: faker.company.companyName(),
             customerContact: faker.name.firstName() + " " + faker.name.lastName(),
             customerPhone: faker.phone.phoneNumber(),
@@ -132,7 +132,7 @@ const createRequests = () => {
             connote: faker.finance.routingNumber(),
             FreightmethodId: getRandomInt(2) + 1,
             UserId: userIds[getRandomInt(userIds.length)],
-            StatusId: getRandomInt(2) + 1
+            StatusId: getRandomInt(6) + 1
         }
 
         db.Request.create(newRequest).then(function (newRequest, created) {
