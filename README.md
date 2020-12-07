@@ -66,4 +66,4 @@ https://direct-ship.herokuapp.com/
 
 ## Application Image
 
- ![Image of Application]()
+ ![Image of Application](https://github.com/wcollins71/Direct-Ship/blob/main/image/deployed-application.png)
