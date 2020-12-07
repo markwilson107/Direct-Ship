@@ -54,8 +54,8 @@
                             <!-- Customer address -->
                             <label for="destinationAddress">Customer Address:</label>
                             <textarea class="form-control" id="destinationAddress" rows="3"
-                                style="resize:none; background-color: white; white-space: pre-line;"
-                                readonly data-edit="{{this.id}}">{{this.customerAddress}}</textarea>
+                                style="resize:none; background-color: white; white-space: pre-line;" readonly
+                                data-edit="{{this.id}}">{{this.customerAddress}}</textarea>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
                             <!-- IBT -->
@@ -83,7 +83,20 @@
                                 </div>
                                 <input type="text" class="form-control" aria-label="Sizing example input"
                                     value="{{this.requireBranch}}" style="background-color: white;"
-                                    aria-describedby="inputGroup-sizing-sm" readonly data-edit="{{this.id}}">
+                                    aria-describedby="inputGroup-sizing-sm" readonly data-edit="{{this.id}}"
+                                    data-branch="{{this.id}}">
+                                    
+                                <select class="custom-select d-none" id="requestingBranch" aria-describedby="inputGroup-sizing-sm" required
+                                    data-branch="{{this.id}}">
+                                    <option value="">Select</option>
+                                    <option value="1">Albany</option>
+                                    <option value="2">Bunbury</option>
+                                    <option value="3">Forrestfield</option>
+                                    <option value="4">Geraldton</option>
+                                    <option value="5">Guildford</option>
+                                    <option value="6">Port Hedland</option>
+                                    <option value="7">Spearwood</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -143,8 +156,8 @@
                                     <!-- Parts -->
                                     <label for="parts">Parts:</label>
                                     <textarea class="form-control" id="parts" rows="8"
-                                        style="resize:none; background-color: white; white-space: pre-line;"
-                                        readonly data-edit="{{this.id}}">{{this.parts}}</textarea>
+                                        style="resize:none; background-color: white; white-space: pre-line;" readonly
+                                        data-edit="{{this.id}}">{{this.parts}}</textarea>
                                 </div>
                                 <div class="col-4 status-section">
                                     <!-- Status -->
@@ -154,8 +167,8 @@
                                                 data-id="1">Alert</button></li>
                                         <li><button class="btn btn-danger resolved-btn" style="display:none;"
                                                 data-target="{{this.id}}" data-id="2">Resolved</button></li>
-                                        <li><button class="btn btn-light edit-btn"
-                                                data-target="{{this.id}}" data-update="{{this.id}}">Edit</button></li>
+                                        <li><button class="btn btn-light edit-btn" data-target="{{this.id}}"
+                                                data-update="{{this.id}}">Edit</button></li>
                                         <li><button class="btn btn-success complete-btn" data-target="{{this.id}}"
                                                 data-id="3">Complete</button></li>
                                         <li><button class="btn btn-light incomplete-btn" style="display:none;"
