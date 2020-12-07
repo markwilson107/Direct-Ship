@@ -3,52 +3,52 @@ const authController = require('../controllers/authcontroller.js');
 const db = require("../models");
 var moment = require('moment');
 
-const theBranches = ["Albany", "Bunbury", "Forrestfield", "Geraldton", "Guildford", "Port Hedland", "Spearwood"]
+const theBranches = ["Albany", "Bunbury", "Forrestfield", "Geraldton", "Guildford", "Port Hedland", "Spearwood"];
+
+// Map data function
+function mapData(dataInput) {
+    // Check if string is empty and return accordingly (for both object and string)
+    function isEmpty(returnObj, string) {
+        if (string === "" || string === "[{}]") {
+            if (returnObj === true) {
+                return [];
+            } else {
+                return "[]";
+            }
+        } else {
+            if (returnObj === true) {
+                return JSON.parse(string);
+            } else {
+                return string;
+            }
+        }
+    }
+    return dataInput.map(row => ({
+        id: row.id,
+        requestBranch: theBranches[row.requestingBranch - 1],
+        requireBranch: theBranches[row.requiringBranch - 1],
+        ibt: row.ibt,
+        proforma: row.proforma,
+        branchInvoice: row.branchInvoice,
+        parts: row.parts,
+        freightCost: row.freightCostAllocation,
+        notes: isEmpty(true, row.notes),
+        rawNotes: isEmpty(false, row.notes),
+        reqOn: moment(row.createdAt).format("MMM Do YYYY"),
+        customerName: row.customerName,
+        customerContact: row.customerContact,
+        customerPhone: row.customerPhone,
+        customerAddress: row.customerAddress,
+        freightMethod: row.Freightmethod.freightMethod,
+        freightAcc: row.freightAccount,
+        status: row.Status.status,
+        statusId: row.Status.id,
+        reqBy: `${row.User.firstname} ${row.User.lastname}`
+    }));
+}
 
 // MODULE EXPORTS
 module.exports = function (app, passport) {
-
-    // Map data function
-    function mapData(dataInput) {
-        // Check if string is empty and return accordingly (for both object and string)
-        function isEmpty(returnObj, string) {
-            if (string === "" || string === "[{}]") {
-                if (returnObj === true) {
-                    return [];
-                } else {
-                    return "[]";
-                }
-            } else {
-                if (returnObj === true) {
-                    return JSON.parse(string);
-                } else {
-                    return string;
-                }
-            }
-        }
-        return dataInput.map(row => ({
-            id: row.id,
-            requestBranch: theBranches[row.requestingBranch - 1],
-            requireBranch: theBranches[row.requiringBranch - 1],
-            ibt: row.ibt,
-            proforma: row.proforma,
-            branchInvoice: row.branchInvoice,
-            parts: row.parts,
-            freightCost: row.freightCostAllocation,
-            notes: isEmpty(true, row.notes),
-            rawNotes: isEmpty(false, row.notes),
-            reqOn: moment(row.createdAt).format("MMM Do YYYY"),
-            customerName: row.customerName,
-            customerContact: row.customerContact,
-            customerPhone: row.customerPhone,
-            customerAddress: row.customerAddress,
-            freightMethod: row.Freightmethod.freightMethod,
-            freightAcc: row.freightAccount,
-            status: row.Status.status,
-            statusId: row.Status.id,
-            reqBy: `${row.User.firstname} ${row.User.lastname}`
-        }));
-    }
 
     // Check if user is an administrator
     function checkAdmin(role) {
@@ -79,7 +79,7 @@ module.exports = function (app, passport) {
     });
 
     // PRIMARY DASHBOARD WITH REQUEST ID
-    app.get('/dashboard/:id', isLoggedIn, function (request, result) {
+    app.get('/dashboard/request/:id', isLoggedIn, function (request, result) {
         db.Request.findAll({
             include: [db.Freightmethod, db.User, db.Status],
             where: { statusId: { $not: ['5', '6'] } },
@@ -87,6 +87,77 @@ module.exports = function (app, passport) {
         }).then(function (data) {
             let requestData = mapData(data);
             result.render('dashboard', { layout: 'backend', request: requestData, requestId: request.params.id, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+        });
+    });
+
+    // SORT BY DATE ASC
+    app.get('/dashboard/dateasc', isLoggedIn, function (request, result) {
+        db.Request.findAll({
+            include: [db.Freightmethod, db.User, db.Status],
+            where: { statusId: { $not: ['5', '6'] } },
+            order: [['createdAt', 'ASC']],
+        }).then(function (data) {
+            let requestData = mapData(data);
+            result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+        });
+    });
+
+    // SORT BY DATE DESC
+    app.get('/dashboard/datedesc', isLoggedIn, function (request, result) {
+        db.Request.findAll({
+            include: [db.Freightmethod, db.User, db.Status],
+            where: { statusId: { $not: ['5', '6'] } },
+            order: [['createdAt', 'DESC']],
+        }).then(function (data) {
+            let requestData = mapData(data);
+            result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+        });
+    });
+
+    // SORT BY ID ASC
+    app.get('/dashboard/idasc', isLoggedIn, function (request, result) {
+        db.Request.findAll({
+            include: [db.Freightmethod, db.User, db.Status],
+            where: { statusId: { $not: ['5', '6'] } },
+            order: [['id', 'ASC']],
+        }).then(function (data) {
+            let requestData = mapData(data);
+            result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+        });
+    });
+
+    // SORT BY ID DESC
+    app.get('/dashboard/iddesc', isLoggedIn, function (request, result) {
+        db.Request.findAll({
+            include: [db.Freightmethod, db.User, db.Status],
+            where: { statusId: { $not: ['5', '6'] } },
+            order: [['id', 'DESC']],
+        }).then(function (data) {
+            let requestData = mapData(data);
+            result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+        });
+    });
+
+    // PRIMARY DASHBOARD WITH SEARCH
+    app.get('/dashboard/search/:term', isLoggedIn, function (request, result) {
+        let searchTerm = request.params.term;
+        console.log(searchTerm);
+        const Op = db.Sequelize.Op;
+        db.Request.findAll({
+            include: [db.Freightmethod, db.User, db.Status],
+            where: {
+                statusId: { $not: ['5', '6'] },
+                [Op.or]: [
+                { customerName: { [Op.like]: '%' + searchTerm + '%' }},
+                {customerContact: { [Op.like]: '%' + searchTerm + '%' }},
+                {customerPhone: { [Op.like]: '%' + searchTerm + '%' }},
+                {parts: { [Op.like]: '%' + searchTerm + '%' }},
+                {id: { [Op.like]: '%' + searchTerm + '%' }}]
+            },
+            order: [['StatusId', 'ASC']],
+        }).then(function (data) {
+            let requestData = mapData(data);
+            result.render('dashboard', { layout: 'backend', search: searchTerm, request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
         });
     });
 

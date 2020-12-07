@@ -93,6 +93,14 @@ $(document).ready(function () {
         updateStatus($(this).data("target"), $(this).data("id"));
     });
 
+    // Saerch function
+    $("#search-btn").on("click", function () {
+        let search = $("#search-input").val().trim();
+        if (search !== "") {
+            window.location.href = "/dashboard/search/"+search;
+        }
+    });
+
     // DEFAULT VALUES
     let currentRequestCount = 0;
     let checkRequests;
