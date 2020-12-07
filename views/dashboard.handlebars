@@ -20,7 +20,50 @@
 </div>
 
 <div class="container-lg">
+    {{!-- FILTER AND SEARCH --}}
     <div class="row">
+        <div class="col-12 bg-dark text-white mt-3" style="padding-top: 15px;">
+            <div class="row">
+                <div class="col-12 col-md-6 text-center">
+                    <div class="row">
+                        <label for="sortby" class="col-3 control-label"> Sort by: </label>
+                        <div class="col-9">
+                            <select name="sortby" id="sortby" class="form-control"
+                                onchange="window.location.href = this.value;">
+                                <option value="/dashboard">-- Sort by --</option>
+                                <option value="/dashboard">Default</option>
+                                <option value="/dashboard/idasc">ID: low to high</option>
+                                <option value="/dashboard/iddesc">ID: high to low</option>
+                                <option value="/dashboard/datedesc">Request date: new to old</option>
+                                <option value="/dashboard/dateasc">Request date: old to new</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 text-center">
+                    <div class="row">
+                        <label for="search" class="col-3 control-label"> Search: </label>
+                        <div class="col-9">
+                            <div class="input-group mb-3">
+                                {{#if search}}
+                                <input id="search-input" type="text" class="form-control" placeholder="Search"
+                                    aria-label="Search" value="{{search}}">
+                                {{else}}
+                                <input id="search-input" type="text" class="form-control" placeholder="Search"
+                                    aria-label="Search">
+                                {{/if}}
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="button" id="search-btn">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-top:10px;">
         <div class="col-12">
             {{#each request}}
             {{> request-block}}

@@ -21,7 +21,7 @@ module.exports = function (app) {
       </head><body><div>
       <h2>A new Direct Ship request has been created</h2>
       <p><strong>Created by user:</strong> ${dbPostRequest.dataValues.UserName}</p>
-      <p>Access the request by clicking this <a href="http://localhost:8080/dashboard/${dbPostRequest.dataValues.id}">link</a></p>
+      <p>Access the request by clicking this <a href="http://localhost:8080/dashboard/request/${dbPostRequest.dataValues.id}">link</a></p>
       <p><strong>Customer:</strong> ${dbPostRequest.dataValues.customerName}</p>
       </div></body></html>`;
 
