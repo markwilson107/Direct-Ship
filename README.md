@@ -48,9 +48,9 @@ This project is not open to contribution.
 
 If you have any questions feel free to contact us here:
 
- ##### Github Wayne: [github.com/markwilson107](https://github.com/wcollins71)
+ ##### Github Wayne: [github.com/wcollins71](https://github.com/wcollins71)
 
- ##### Github Andrew: [github.com/markwilson107](https://github.com/diemrbond)
+ ##### Github Andrew: [github.com/diemrbond](https://github.com/diemrbond)
 
  ##### Github Mark: [github.com/markwilson107](https://github.com/markwilson107)
 
