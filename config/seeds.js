@@ -132,7 +132,7 @@ const createRequests = () => {
             connote: faker.finance.routingNumber(),
             FreightmethodId: getRandomInt(2) + 1,
             UserId: userIds[getRandomInt(userIds.length)],
-            StatusId: getRandomInt(2) + 1
+            StatusId: getRandomInt(6) + 1
         }
 
         db.Request.create(newRequest).then(function (newRequest, created) {

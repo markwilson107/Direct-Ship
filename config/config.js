@@ -7,7 +7,7 @@ module.exports = {
         "username": "root",
         "password": process.env.DB_PASS,
         "database": "directshipDB",
-        "host": "127.0.0.1",
+        "host": "localhost",
         "port": 3306,
         "dialect": "mysql"
     },

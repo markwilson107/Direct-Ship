@@ -76,16 +76,16 @@ exports.logout = function (request, result) {
 }
 
 // Logged in dashboard
-exports.dashboard = function (request, result) {
-    db.Request.findAll({
-        include: [db.Freightmethod, db.User, db.Status],
-        where: { statusId: { $not: '5', $not: '6' } },
-        order: [['StatusId', 'ASC']],
-    }).then(function (data) {
-        let requestData = mapData(data);
-        result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
-    });
-}
+// exports.dashboard = function (request, result) {
+//     db.Request.findAll({
+//         include: [db.Freightmethod, db.User, db.Status],
+//         where: { statusId: { $not: '5', $not: '6' } },
+//         order: [['StatusId', 'ASC']],
+//     }).then(function (data) {
+//         let requestData = mapData(data);
+//         result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+//     });
+// }
 
 // Logged in dashboard with id
 // exports.dashboard = function (request, result) {
@@ -114,16 +114,16 @@ exports.newrequest = function (request, result) {
 }
 
 // Access archived requests page
-exports.archivedRequests = function (request, result) {
-    db.Request.findAll({
-        include: [db.Freightmethod, db.User, db.Status],
-        where: { statusId: '5', statusId: '6' },
-        order: [['StatusId', 'ASC']],
-    }).then(function (data) {
-        let requestData = mapData(data);
-        result.render('archive', { layout: 'archive', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
-    });
-}
+// exports.archivedRequests = function (request, result) {
+//     db.Request.findAll({
+//         include: [db.Freightmethod, db.User, db.Status],
+//         where: { statusId: '5', statusId: '6' },
+//         order: [['StatusId', 'ASC']],
+//     }).then(function (data) {
+//         let requestData = mapData(data);
+//         result.render('archive', { layout: 'archive', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+//     });
+// }
 
 // Check if user is an administrator
 function checkAdmin(role) {

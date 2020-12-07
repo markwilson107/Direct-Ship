@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    $("#collapse-2").collapse("show");
 
     function updateNotes(thisElement) {
         // Gets the current request id
@@ -62,14 +61,19 @@ $(document).ready(function () {
             $(this).find(".resolved-btn").css("display", "block");
             $(this).find(".cancel-btn").css("display", "block");
         } else if ($(this).data("status") === "Complete") {
-            $(this).find(".request-header").css("backgroundColor", "rgba(0, 0, 0, 0.144)");
-            $(this).find(".request-header").css("color", "rgba(0, 0, 0, 0.5)");
+            $(this).find(".request-header").css("backgroundColor", "rgba(0, 0, 0, 0.05)");
+            $(this).find(".request-header").css("color", "rgba(0, 0, 0, 0.6)");
             $(this).find(".complete-btn").css("display", "none");
             $(this).find(".alert-btn").css("display", "none");
             $(this).find(".edit-btn").css("display", "none");
             $(this).find(".cancel-btn").css("display", "none");
             $(this).find(".incomplete-btn").css("display", "block");
             $(this).find(".archive-btn").css("display", "block");
+        } else if ($(this).data("status") === "New") {
+            $(this).find(".request-header").css("backgroundColor", "rgba(178, 215, 226, 0.315)");
+        }else if ($(this).data("status") === "Cancelled") {
+            $(this).find(".request-header").css("backgroundColor", "rgba(0, 0, 0, 0.05)");
+            $(this).find(".request-header").css("color", "rgba(0, 0, 0, 0.6)");
         }
     });
 
@@ -85,7 +89,7 @@ $(document).ready(function () {
     }
 
     // Status buttons
-    $('.alert-btn, .resolved-btn, .complete-btn, .incomplete-btn, .archive-btn, cancel-btn').on('click', function () {
+    $('.alert-btn, .resolved-btn, .complete-btn, .incomplete-btn, .archive-btn, .cancel-btn').on('click', function () {
         updateStatus($(this).data("target"), $(this).data("id"));
     });
 
@@ -184,7 +188,7 @@ $(document).ready(function () {
                 $(editButton[0]).attr("class", "btn btn-light edit-btn");
                 $(editButton[0]).text("Edit")
 
-                updateStatus(updateBlock, 5);
+                updateStatus(updateBlock, 2);
             }
         });       
 

@@ -7,11 +7,10 @@ module.exports = function (app) {
 
   // POST route for saving a new request
   app.post("/api/newrequest", function (req, res) {
-    console.log("================= " + req.user.firstname);
     db.Request.create({
       ...req.body,
       UserId: req.user.id,
-      UserName: req.user.firstname
+      UserName: `${req.user.firstname} ${req.user.lastname}`
     }).then(function (dbPostRequest) {
       // console.log(dbPostRequest.dataValues);
       // const emailAddress = "wayne.c@tcwa.com.au";
@@ -22,9 +21,9 @@ module.exports = function (app) {
       </head><body><div>
       <h2>A new Direct Ship request has been created</h2>
       <p><strong>Created by user:</strong> ${dbPostRequest.dataValues.UserName}</p>
-      <p>Access the request by clicking this <a href="http://localhost:8080/${dbPostRequest.dataValues.id}">link</a></p>
+      <p>Access the request by clicking this <a href="http://localhost:8080/dashboard/${dbPostRequest.dataValues.id}">link</a></p>
       <p><strong>Customer:</strong> ${dbPostRequest.dataValues.customerName}</p>
-      </div></body></html>`
+      </div></body></html>`;
 
       sendMail(emailAddress, emailSubject, emailText, function (err, data) {
         if (err) {
@@ -38,7 +37,7 @@ module.exports = function (app) {
       res.json(dbPostRequest);
     });
   });
-  
+
   // UPDATE route for request
   app.put("/api/update_request/:id", function (req, res) {
     db.Request.update(req.body,
