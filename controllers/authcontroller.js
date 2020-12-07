@@ -3,6 +3,8 @@ var exports = module.exports = {}
 var db = require("../models");
 var moment = require('moment'); // require
 
+const theBranches = ["Albany","Bunbury","Forrestfield","Geraldton","Guildford","Port Hedland","Spearwood"]
+
 // Map data function
 function mapData(dataInput) {
     // Check if string is empty and return accordingly (for both object and string)
@@ -23,8 +25,8 @@ function mapData(dataInput) {
     }
     return dataInput.map(row => ({
         id: row.id,
-        requestBranch: row.requestingBranch,
-        requireBranch: row.requiringBranch,
+        requestBranch: theBranches[row.requestingBranch-1],
+        requireBranch: theBranches[row.requiringBranch-1],
         ibt: row.ibt,
         proforma: row.proforma,
         branchInvoice: row.branchInvoice,
@@ -77,7 +79,7 @@ exports.logout = function (request, result) {
 exports.dashboard = function (request, result) {
     db.Request.findAll({
         include: [db.Freightmethod, db.User, db.Status],
-        where: { statusId: { $not: '4' } },
+        where: { statusId: { $not: '5', $not: '6' } },
         order: [['StatusId', 'ASC']],
     }).then(function (data) {
         let requestData = mapData(data);
@@ -86,16 +88,16 @@ exports.dashboard = function (request, result) {
 }
 
 // Logged in dashboard with id
-exports.dashboard = function (request, result) {
-    db.Request.findAll({
-        include: [db.Freightmethod, db.User, db.Status],
-        where: { statusId: { $not: '4' } },
-        order: [['StatusId', 'ASC']],
-    }).then(function (data) {
-        let requestData = mapData(data);
-        result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
-    });
-}
+// exports.dashboard = function (request, result) {
+//     db.Request.findAll({
+//         include: [db.Freightmethod, db.User, db.Status],
+//         where: { statusId: { $not: '4' } },
+//         order: [['StatusId', 'ASC']],
+//     }).then(function (data) {
+//         let requestData = mapData(data);
+//         result.render('dashboard', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+//     });
+// }
 
 // Access users table
 exports.users = function (request, result) {
@@ -115,11 +117,11 @@ exports.newrequest = function (request, result) {
 exports.archivedRequests = function (request, result) {
     db.Request.findAll({
         include: [db.Freightmethod, db.User, db.Status],
-        where: { statusId: '4' },
+        where: { statusId: '5', statusId: '6' },
         order: [['StatusId', 'ASC']],
     }).then(function (data) {
         let requestData = mapData(data);
-        result.render('archive', { layout: 'backend', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
+        result.render('archive', { layout: 'archive', request: requestData, currentUser: `${request.user.firstname} ${request.user.lastname}`, admin: checkAdmin(request.user.role) });
     });
 }
 

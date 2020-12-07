@@ -60,12 +60,14 @@ $(document).ready(function () {
             $(this).find(".request-header").css("backgroundColor", "rgba(255, 0, 0, 0.2)");
             $(this).find(".alert-btn").css("display", "none");
             $(this).find(".resolved-btn").css("display", "block");
+            $(this).find(".cancel-btn").css("display", "block");
         } else if ($(this).data("status") === "Complete") {
             $(this).find(".request-header").css("backgroundColor", "rgba(0, 0, 0, 0.144)");
             $(this).find(".request-header").css("color", "rgba(0, 0, 0, 0.5)");
             $(this).find(".complete-btn").css("display", "none");
             $(this).find(".alert-btn").css("display", "none");
             $(this).find(".edit-btn").css("display", "none");
+            $(this).find(".cancel-btn").css("display", "none");
             $(this).find(".incomplete-btn").css("display", "block");
             $(this).find(".archive-btn").css("display", "block");
         }
@@ -83,7 +85,7 @@ $(document).ready(function () {
     }
 
     // Status buttons
-    $('.alert-btn, .resolved-btn, .complete-btn, .incomplete-btn, .archive-btn').on('click', function () {
+    $('.alert-btn, .resolved-btn, .complete-btn, .incomplete-btn, .archive-btn, cancel-btn').on('click', function () {
         updateStatus($(this).data("target"), $(this).data("id"));
     });
 
@@ -119,6 +121,7 @@ $(document).ready(function () {
                         newButton.html('<i class="fa fa-bell"></i> New requests')
 
                         $('.newrequestsalert').append(newButton);
+                        $('.newrequestcontainer').attr("style", "display:block")
                     }
                 }
                 currentRequestCount = tempRequestCount;
@@ -129,6 +132,62 @@ $(document).ready(function () {
     // REFRESH PAGE BUTTON
     $(document.body).on('click', ".refresh", function (e) {
         location.reload();
+    });
+
+    // EDIT DASHBOARD BUTTON
+    $(document.body).on('click', ".edit-btn", function (e) {
+
+        let editBlock = $(this).data("target");
+        let allFields = $(`*[data-edit="${editBlock}"]`);
+        let editButton = $(`*[data-update="${editBlock}"]`);
+
+        for (var i = 0; i < allFields.length; i++) {
+            allFields[i].removeAttribute("readonly");
+        }
+
+        $(editButton[0]).attr("class", "btn btn-warning update-btn");
+        $(editButton[0]).text("Update")
+
+    });
+
+    const theBranches = ["Albany","Bunbury","Forrestfield","Geraldton","Guildford","Port Hedland","Spearwood"]
+
+    $(document.body).on('click', ".update-btn", function (e) {
+
+        let updateBlock = $(this).data("target");
+        let allFields = $(`*[data-edit="${updateBlock}"]`);
+        let editButton = $(`*[data-update="${updateBlock}"]`);
+
+        let newValues = [];
+
+        for (var i = 0; i < allFields.length; i++) {
+            newValues.push($(allFields[i]).val());
+            allFields[i].setAttribute("readonly", true);
+        }
+
+        $.ajax({
+            method: "PUT",
+            url: "/api/update_request/" + updateBlock,
+            data: {
+                "customerName": `${newValues[0]}`,
+                "customerContact": `${newValues[1]}`,
+                "customerPhone": `${newValues[2]}`,
+                "customerAddress": `${newValues[3]}`,
+                "ibt": `${newValues[4]}`,
+                "proforma": `${newValues[5]}`,
+                "requiringBranch": `${theBranches.indexOf(newValues[6])+1}`,
+                "freightCostAllocation": `${newValues[7]}`,
+                "freightAccount": `${newValues[8]}`,
+                "parts": `${newValues[9]}`
+            },
+            success: () => {
+                $(editButton[0]).attr("class", "btn btn-light edit-btn");
+                $(editButton[0]).text("Edit")
+
+                updateStatus(updateBlock, 5);
+            }
+        });       
+
     });
 
 })

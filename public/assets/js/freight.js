@@ -1,3 +1,4 @@
+
 $(function () {
   $(".create-form").on("submit", function (event) {
 
@@ -25,9 +26,9 @@ $(function () {
       notes: addNotes($("#notes").val()),
       FreightmethodId: $("#freightMethod option:selected").attr("value"),
       freightAccount: $("#freightAccount").val(),
-      StatusId: "2"
+      StatusId: "3"
     };
-    console.log(newRequest);
+    // console.log(newRequest);
     console.log("===============================================");
 
     // Send the POST request.
@@ -38,6 +39,8 @@ $(function () {
       function () {
         console.log("created new request");
         // Reload the page to get the updated list
+
+
         location.href = "/dashboard";
       }
     );
