@@ -13,7 +13,7 @@
                         Freight method: <span class="bold">{{this.freightMethod}}</span>
                     </div>
                     <div class="col-6 col-lg-2 status">
-                        Status: <span class="bold">{{this.status}}</span>
+                        Status: <span class="bold" data-status="{{this.id}}">{{this.status}}</span>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                                     value="{{this.requireBranch}}" style="background-color: white;"
                                     aria-describedby="inputGroup-sizing-sm" readonly data-edit="{{this.id}}"
                                     data-branch="{{this.id}}">
-                                    
+
                                 <select class="custom-select d-none" id="requestingBranch" aria-describedby="inputGroup-sizing-sm" required
                                     data-branch="{{this.id}}">
                                     <option value="">Select</option>

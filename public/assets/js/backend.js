@@ -169,6 +169,7 @@ $(document).ready(function () {
         let allFields = $(`*[data-edit="${updateBlock}"]`);
         let editButton = $(`*[data-update="${updateBlock}"]`);
         let branchText = $(`*[data-branch="${updateBlock}"]`);
+        let statusText = $(`*[data-status="${updateBlock}"]`);
 
         // SET DEFAULT FOR NEW VALUES
         let newValues = [];
@@ -177,6 +178,10 @@ $(document).ready(function () {
         $(branchText[0]).attr("class", "form-control");
         $(branchText[1]).attr("class", "custom-select d-none");
         $(branchText[0]).val(theBranches[$(branchText[1]).val() - 1]);
+
+        // UPDATE STATUS TEXT
+        $(statusText[0]).text("Updated");
+        console.log("statusText[0]: "+statusText[0]);
 
         // RECORD ALL THE NEW VARIABLES
         for (var i = 0; i < allFields.length; i++) {
@@ -199,7 +204,7 @@ $(document).ready(function () {
                 "freightCostAllocation": `${newValues[7]}`,
                 "freightAccount": `${newValues[8]}`,
                 "parts": `${newValues[9]}`,
-                "status": 5
+                "StatusId": 5
             },
             success: () => {
                 $(editButton[0]).attr("class", "btn btn-light edit-btn");
