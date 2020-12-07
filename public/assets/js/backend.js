@@ -211,13 +211,11 @@ $(document).ready(function () {
                 "freightCostAllocation": `${newValues[7]}`,
                 "freightAccount": `${newValues[8]}`,
                 "parts": `${newValues[9]}`,
-                "StatusId": 5
+                "StatusId": 2
             },
             success: () => {
                 $(editButton[0]).attr("class", "btn btn-light edit-btn");
-                $(editButton[0]).text("Edit")
-
-                updateStatus(updateBlock, 2);
+                $(editButton[0]).text("Edit");
 
             }
         });
