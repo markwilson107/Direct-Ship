@@ -14,7 +14,7 @@
 
 ## Description
 
-This application was written for Trucking Centre Western Australia, it is used to help staff keep track of requests sent from remote branches to the main warehouse. If a staff member from one of these satellite branches requires a part to be sent to a customer and it is not in stock in their own warehouse, they will request that the main warehouse direct ship it to the customer rather than transferring by internal stock transfer, receiving into their warehouse and then forwarding to the customer.
+This application was written for Truck Centre Western Australia, it is used to help staff keep track of requests sent from remote branches to the main warehouse. If a staff member from one of these satellite branches requires a part to be sent to a customer and it is not in stock in their own warehouse, they will request that the main warehouse direct ship it to the customer rather than transferring by internal stock transfer, receiving into their warehouse and then forwarding to the customer.
 
 ## Installation
 
