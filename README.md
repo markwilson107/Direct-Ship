@@ -58,7 +58,7 @@ If you have any questions feel free to contact us here:
 
 [MIT](https://opensource.org/licenses/MIT)
 
-You have the freedom to do as you like with this permissive software, as long as an original copy and license notice is included. I cannon be held liable for this software.
+You have the freedom to do as you like with this permissive software, as long as an original copy and license notice is included.
 
 ## Deployed Application
 
