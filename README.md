@@ -19,7 +19,8 @@ This application was written for Truck Centre Western Australia, it is used to h
 ## Installation
 
 1. Follow the link below and sign up.
-2. Have an admin active your account. 
+2. Have an admin active your account.
+3. Or use demo account.
 
 Deployed Application:
 https://direct-ship.herokuapp.com/
