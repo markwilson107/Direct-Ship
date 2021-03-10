@@ -25,6 +25,10 @@ This application was written for Truck Centre Western Australia, it is used to h
 Deployed Application:
 https://direct-ship.herokuapp.com/
 
+Demo login:
+Email: demo@TCWA.com
+Password: Demo123
+
 ## Usage
 
 Instructions on how to use the application are as follows: 
@@ -39,7 +43,7 @@ Warehouse staff:
 1. Login to your account. 
 2. Select a request you would like to view my by clicking it. 
 3. Update the request by adding notes or editing it. 
-4. Update status according to stage of request. 
+4. Update status according to stage of request.
 
 ## Contributing
 
